@@ -82,6 +82,7 @@ interface ImageElement {
 
 interface ObjectCardProps {
   style?: any;
+  borderLeftColor?: string;
   leftContainerFlex?: number;
   iconLeftMargin?: number;
   touchable?: boolean;
@@ -114,6 +115,7 @@ interface ObjectCardProps {
 
 const ObjectCard = ({
   style,
+  borderLeftColor,
   leftContainerFlex = 3,
   iconLeftMargin = 20,
   touchable = true,
@@ -238,6 +240,12 @@ const ObjectCard = ({
       testID="objectCardTouchable"
       disabled={!touchable}>
       <Card style={[styles.container, style]}>
+        {borderLeftColor != null && (
+          <View
+            testID="objectCardLeftBar"
+            style={[styles.leftBar, {backgroundColor: borderLeftColor}]}
+          />
+        )}
         {upperBadges != null && (
           <View
             style={[
@@ -315,9 +323,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginHorizontal: 12,
     marginVertical: 4,
-    paddingHorizontal: 15,
-    paddingRight: 15,
     paddingVertical: 10,
+    paddingRight: 15,
+    paddingLeft: 18,
+    borderRadius: 20,
+  },
+  leftBar: {
+    position: 'absolute',
+    left: 6,
+    top: 8,
+    bottom: 8,
+    width: 5,
+    borderRadius: 3,
   },
   horizontalBadgesContainer: {
     flexDirection: 'row',

@@ -1,0 +1,21 @@
+{
+  "title": "ObjectCard: redesign cards with rounder corners and a rounded left accent bar",
+  "type": "feat",
+  "packages": [
+    "@axelor/aos-mobile-ui",
+    "@axelor/aos-mobile-core",
+    "@axelor/aos-mobile-crm",
+    "@axelor/aos-mobile-dms",
+    "@axelor/aos-mobile-helpdesk",
+    "@axelor/aos-mobile-hr",
+    "@axelor/aos-mobile-intervention",
+    "@axelor/aos-mobile-maintenance",
+    "@axelor/aos-mobile-manufacturing",
+    "@axelor/aos-mobile-project",
+    "@axelor/aos-mobile-purchase",
+    "@axelor/aos-mobile-quality",
+    "@axelor/aos-mobile-sale",
+    "@axelor/aos-mobile-stock"
+  ],
+  "description": "Cards now have rounder corners and show their status color as an inset, rounded accent capsule on the left instead of a full-height edge border. The accent color is driven by a new optional borderLeftColor prop on ObjectCard; when it is omitted no accent bar is shown. Migration: cards that previously faked the left border through a custom style passed to ObjectCard's style prop now pass the color via borderLeftColor; the fake-border styles were removed."
+}
