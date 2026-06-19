@@ -18,7 +18,12 @@
 
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
-import {DropdownMenu, DropdownMenuItem} from '@axelor/aos-mobile-ui';
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  ThemeColors,
+  useThemeColor,
+} from '@axelor/aos-mobile-ui';
 import {ActionType, GenericHeaderActions} from '../../../header';
 import {useSelector} from '../../../redux/hooks';
 import HeaderOptionMenuItem from './HeaderOptionMenuItem';
@@ -40,12 +45,15 @@ const HeaderOptionMenu = ({
   genericActions = {},
   options,
 }: HeaderOptionMenuProps) => {
+  const Colors = useThemeColor();
   const {mobileSettings} = useSelector(state => state.appConfig);
 
   const collapseMenuItems = useMemo(
     () => Dimensions.get('window').width <= SMALLEST_WINDOW_WIDTH,
     [],
   );
+
+  const styles = useMemo(() => getStyles(Colors), [Colors]);
 
   const MenuItem = useMemo(
     () => (collapseMenuItems ? DropdownMenuItem : HeaderOptionMenuItem),
@@ -161,7 +169,11 @@ const HeaderOptionMenu = ({
   if (collapseMenuItems) {
     return (
       <View style={styles.container}>
-        <DropdownMenu>{[...HeaderItemList, ...MenuItemList]}</DropdownMenu>
+        <View style={styles.actionCard} testID="headerOverflowCard">
+          <DropdownMenu style={styles.dropdownTrigger}>
+            {[...HeaderItemList, ...MenuItemList]}
+          </DropdownMenu>
+        </View>
         {renderPopups()}
       </View>
     );
@@ -169,20 +181,61 @@ const HeaderOptionMenu = ({
 
   return (
     <View style={styles.container}>
-      {HeaderItemList}
-      {menuActions.length !== 0 && <DropdownMenu>{MenuItemList}</DropdownMenu>}
+      {HeaderItemList.map((headerItem, index) => (
+        <View
+          key={`header-card-${index}`}
+          style={styles.actionCard}
+          testID="headerActionCard">
+          {/* HeaderOptionMenuItem keeps its own horizontal margins for the
+           * legacy layout; they are cancelled here so the icon stays centered
+           * inside the redesign card. */}
+          <View style={styles.actionCardContent}>{headerItem}</View>
+        </View>
+      ))}
+      {menuActions.length !== 0 && (
+        <View style={styles.actionCard} testID="headerOverflowCard">
+          <DropdownMenu style={styles.dropdownTrigger}>
+            {MenuItemList}
+          </DropdownMenu>
+        </View>
+      )}
       {renderPopups()}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 15,
-  },
-});
+/* Each header action and the overflow menu sit on their own elevated rounded
+ * surface, while their icons, badges and behavior remain unchanged. */
+const getStyles = (Colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: 15,
+    },
+    actionCard: {
+      width: 40,
+      height: 40,
+      marginLeft: 8,
+      borderRadius: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Colors.backgroundColor,
+      elevation: 3,
+      shadowOpacity: 0.5,
+      shadowColor: Colors.secondaryColor.background,
+      shadowOffset: {width: 0, height: 0},
+    },
+    actionCardContent: {
+      /* Cancel HeaderOptionMenuItem's own marginLeft:15 / marginRight:5 so the
+       * icon stays centered inside the 40x40 card. */
+      marginLeft: -15,
+      marginRight: -5,
+    },
+    dropdownTrigger: {
+      marginLeft: -15,
+    },
+  });
 
 export default HeaderOptionMenu;
