@@ -1,0 +1,5 @@
+{
+  "title": "AutoCompleteSearch & Picker: refreshed dropdown look with rounded container, result chevrons and pill-shaped option colors",
+  "type": "refactor",
+  "packages": ["@axelor/aos-mobile-ui"]
+}
