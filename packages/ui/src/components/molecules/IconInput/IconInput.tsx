@@ -88,6 +88,20 @@ const IconInput = ({
     onEndFocus();
   };
 
+  /*
+   * Only icons that actually render should take part in divider placement.
+   * An icon renders unless its `visible` prop is explicitly false; a missing
+   * `visible` prop is treated as visible. This prevents an orphan leading
+   * divider when a preceding icon is hidden (e.g. an empty scannable input).
+   */
+  const visibleRightIcons = useMemo(
+    () =>
+      rightIconsList.filter(
+        iconComponent => iconComponent?.props?.visible !== false,
+      ),
+    [rightIconsList],
+  );
+
   return (
     <View
       testID="iconInputContainer"
@@ -111,9 +125,12 @@ const IconInput = ({
         isFocus={isFocus}
         isScannableInput={isScannableInput}
       />
-      {rightIconsList.map((iconComponent, index) =>
-        React.cloneElement(iconComponent, {key: index}),
-      )}
+      {visibleRightIcons.map((iconComponent, index) => (
+        <React.Fragment key={index}>
+          {index > 0 && <View style={styles.divider} />}
+          {React.cloneElement(iconComponent, {key: index})}
+        </React.Fragment>
+      ))}
     </View>
   );
 };
@@ -123,19 +140,25 @@ const getStyles = (Colors: ThemeColors) =>
     container: {
       borderColor: Colors.secondaryColor.background,
       borderWidth: 1,
-      borderRadius: 7,
-      backgroundColor: Colors.backgroundColor,
+      borderRadius: 16,
+      backgroundColor: Colors.screenBackgroundColor,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      paddingLeft: 5,
-      paddingRight: 8,
+      paddingLeft: 16,
+      paddingRight: 12,
       marginHorizontal: 20,
-      marginVertical: 6,
-      minHeight: 40,
+      marginVertical: 8,
+      minHeight: 52,
     },
     input: {
       flex: 1,
+    },
+    divider: {
+      width: 1,
+      height: 24,
+      backgroundColor: Colors.secondaryColor.background,
+      marginHorizontal: 8,
     },
   });
 
