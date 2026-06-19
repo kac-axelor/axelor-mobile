@@ -22,7 +22,6 @@ import {
   Icon,
   InfoBubble,
   Text,
-  ThemeColors,
   useConfig,
   useThemeColor,
 } from '@axelor/aos-mobile-ui';
@@ -30,9 +29,9 @@ import {Compatibility} from '../../../app';
 import {useTranslator} from '../../../i18n';
 import {getCompatibilityError, isMenuIncompatible} from '../../helpers';
 
-const WIDTH = 54;
-const HEIGHT = 54;
-const DEFAULT_RADIUS = 8;
+const WIDTH = 48;
+const HEIGHT = 48;
+const DEFAULT_RADIUS = 14;
 const ROUNDED_RADIUS = WIDTH / 2;
 
 interface MenuIconButtonProps {
@@ -60,19 +59,37 @@ const MenuIconButton = ({
   const I18n = useTranslator();
   const {showSubtitles} = useConfig();
 
+  /*
+   * The rounded variant is the user avatar, which always reads as a solid
+   * primary disc. Module tiles are filled with the solid primary color only
+   * when active; inactive tiles stay transparent so the rail shows plain icons
+   * over the drawer background.
+   */
+  const filled = useMemo(() => rounded || isActive, [isActive, rounded]);
+
   const _color = useMemo(
-    () =>
-      disabled
-        ? Colors.secondaryColor.background_light
-        : isActive
-          ? Colors.primaryColor.background_light
-          : Colors.backgroundColor,
-    [Colors, disabled, isActive],
+    () => (filled ? Colors.primaryColor.background : 'transparent'),
+    [Colors, filled],
   );
 
+  /*
+   * Icon color follows the tile: the readable foreground over the primary fill
+   * when filled, a muted grey when disabled, and the standard dark icon color
+   * otherwise.
+   */
+  const iconColor = useMemo(() => {
+    if (filled) {
+      return Colors.primaryColor.foreground;
+    }
+
+    return disabled
+      ? Colors.secondaryColor.background
+      : Colors.secondaryColor_dark.background;
+  }, [Colors, disabled, filled]);
+
   const styles = useMemo(
-    () => getStyles(Colors, rounded, _color),
-    [Colors, _color, rounded],
+    () => getStyles(rounded, _color),
+    [_color, rounded],
   );
 
   const compatibilityError = useMemo(
@@ -86,15 +103,7 @@ const MenuIconButton = ({
       disabled={disabled || compatibilityError}
       activeOpacity={0.95}>
       <View style={[styles.container, style]}>
-        <Icon
-          size={32}
-          name={icon}
-          color={
-            disabled
-              ? Colors.secondaryColor.background
-              : Colors.secondaryColor_dark.background
-          }
-        />
+        <Icon size={28} name={icon} color={iconColor} />
         {compatibilityError && (
           <InfoBubble
             style={styles.infoBubble}
@@ -115,7 +124,7 @@ const MenuIconButton = ({
   );
 };
 
-const getStyles = (Colors: ThemeColors, rounded: boolean, _color: string) =>
+const getStyles = (rounded: boolean, _color: string) =>
   StyleSheet.create({
     container: {
       width: WIDTH,
@@ -123,16 +132,13 @@ const getStyles = (Colors: ThemeColors, rounded: boolean, _color: string) =>
       borderRadius: rounded ? ROUNDED_RADIUS : DEFAULT_RADIUS,
       flexDirection: 'row',
       justifyContent: 'center',
-      elevation: 2,
-      shadowOpacity: 0.5,
-      shadowColor: Colors.secondaryColor.background,
+      alignItems: 'center',
       backgroundColor: _color,
-      shadowOffset: {width: 0, height: 0},
       zIndex: 10,
     },
     moduleSubtitle: {
       fontSize: 10,
-      maxWidth: 54,
+      maxWidth: WIDTH + 6,
       alignSelf: 'center',
     },
     infoBubble: {
