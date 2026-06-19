@@ -166,6 +166,19 @@ const Picker = ({
     );
   }, [_displayValue, placeholder, selectedItem]);
 
+  /*
+   * Color of the dot shown in the closed field for the selected option.
+   * Mirrors how SelectionContainer derives an item color (item.color),
+   * using the same Color.background value as the option list color bar.
+   */
+  const selectedDotColor = useMemo(() => {
+    if (displayPlaceholder) {
+      return null;
+    }
+
+    return selectedItem?.color?.background ?? null;
+  }, [displayPlaceholder, selectedItem]);
+
   const styles = useMemo(
     () =>
       getStyles(Colors, _required, marginBottom, isOpen, displayPlaceholder),
@@ -195,27 +208,37 @@ const Picker = ({
       {!checkNullString(title) && (
         <Text style={[styles.title, styleTxt]}>{title}</Text>
       )}
-      <RightIconButton
-        numberOfLines={multiLineLabels ? null : 1}
-        onPress={togglePicker}
-        icon={
-          <Icon
-            name="chevron-down"
-            color={Colors.secondaryColor_dark.background}
+      <View style={styles.fieldWrapper}>
+        <RightIconButton
+          numberOfLines={multiLineLabels ? null : 1}
+          onPress={togglePicker}
+          icon={
+            <Icon
+              name="chevron-down"
+              color={Colors.secondaryColor_dark.background}
+            />
+          }
+          title={displayPlaceholder ? placeholder : _displayValue(selectedItem)}
+          styleText={styles.textPicker}
+          style={[
+            commonStyles.filter,
+            commonStyles.filterSize,
+            commonStyles.filterAlign,
+            isFocused && commonStyles.inputFocused,
+            styles.content,
+            selectedDotColor != null && styles.contentWithDot,
+            multiLineLabels && styles.adjustableHeight,
+            pickerStyle,
+          ]}
+        />
+        {selectedDotColor != null && (
+          <View
+            pointerEvents="none"
+            testID="pickerSelectedColorDot"
+            style={[styles.colorDot, {backgroundColor: selectedDotColor}]}
           />
-        }
-        title={displayPlaceholder ? placeholder : _displayValue(selectedItem)}
-        styleText={styles.textPicker}
-        style={[
-          commonStyles.filter,
-          commonStyles.filterSize,
-          commonStyles.filterAlign,
-          isFocused && commonStyles.inputFocused,
-          styles.content,
-          multiLineLabels && styles.adjustableHeight,
-          pickerStyle,
-        ]}
-      />
+        )}
+      </View>
       {isOpen && (
         <SelectionContainer
           style={pickerStyle}
@@ -260,6 +283,22 @@ const getStyles = (
       borderWidth: 1,
       marginHorizontal: 0,
       minHeight: 40,
+    },
+    fieldWrapper: {
+      justifyContent: 'center',
+    },
+    contentWithDot: {
+      paddingLeft: 28,
+    },
+    colorDot: {
+      position: 'absolute',
+      left: 12,
+      top: 0,
+      bottom: 0,
+      marginVertical: 'auto',
+      width: 10,
+      height: 10,
+      borderRadius: 5,
     },
     adjustableHeight: {
       height: undefined,
