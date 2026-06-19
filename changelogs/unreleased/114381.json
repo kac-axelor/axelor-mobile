@@ -1,0 +1,6 @@
+{
+  "title": "Inputs: refresh the look of form fields, search bars and increment buttons with a filled light-gray, flat, rounded style",
+  "type": "refactor",
+  "packages": ["@axelor/aos-mobile-ui"],
+  "description": "Inputs now use a filled light-gray background, larger rounded corners, more height and no shadow, while keeping their border and focus/required highlighting. On scannable search fields the scan action is separated from the other actions by a thin vertical divider. The +/- increment buttons become filled flat squares. The change is applied on the shared input components so most inputs across the app inherit the new look automatically."
+}
