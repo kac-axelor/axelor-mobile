@@ -49,7 +49,7 @@ const DropdownMenu = ({style, styleMenu, children}: DropdownMenuProps) => {
         onPress={() => setVisible(!visible)}
         testID="dropdownMenuTouchable">
         <Icon
-          name="three-dots-vertical"
+          name="three-dots"
           color={Colors.primaryColor.background}
           size={22}
         />
