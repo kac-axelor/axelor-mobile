@@ -45,9 +45,9 @@ const Badge = ({
   return (
     <View style={[badgeStyle.container, style]} testID="bagdeContainer">
       <Text
-        style={txtStyle}
+        style={[badgeStyle.text, txtStyle]}
         numberOfLines={numberOfLines}
-        textColor={color?.foreground}
+        textColor={(color || Colors.primaryColor)?.background}
         fontSize={14}>
         {title}
       </Text>
@@ -59,14 +59,17 @@ const getStyles = color =>
   StyleSheet.create({
     container: {
       backgroundColor: color?.background_light,
-      borderColor: color?.background,
-      borderWidth: 2,
-      borderRadius: 7,
+      borderWidth: 0,
+      borderRadius: 20,
       margin: '1%',
-      width: 87,
-      height: 22,
+      paddingHorizontal: 12,
+      paddingVertical: 4,
+      alignSelf: 'flex-start',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    text: {
+      fontWeight: 'bold',
     },
   });
 
