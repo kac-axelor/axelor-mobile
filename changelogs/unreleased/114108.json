@@ -1,0 +1,6 @@
+{
+  "title": "Header: refresh the navigation bar so the back/menu button and each action sit on their own rounded, elevated cards",
+  "type": "refactor",
+  "packages": ["@axelor/aos-mobile-core"],
+  "description": "Visual redesign of the screen header. The left button (open menu on root screens, go back on detail screens), every header action icon and the overflow menu are now shown on individual rounded card surfaces over a lighter header background. Action indicators, conditional icon colors, custom action components and the overflow behavior are unchanged."
+}
