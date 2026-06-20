@@ -18,7 +18,13 @@
 
 import React, {ReactNode, useMemo} from 'react';
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import {DropdownCard, HorizontalRule, Text} from '@axelor/aos-mobile-ui';
+import {
+  DropdownCard,
+  HorizontalRule,
+  Text,
+  ThemeColors,
+  useThemeColor,
+} from '@axelor/aos-mobile-ui';
 import {useTranslator} from '../../../../i18n';
 import {
   DEFAULT_COLSPAN,
@@ -36,6 +42,9 @@ interface PanelProps {
 
 const Panel = ({renderItem, formContent, _panel}: PanelProps) => {
   const I18n = useTranslator();
+  const Colors = useThemeColor();
+
+  const styles = useMemo(() => getStyles(Colors), [Colors]);
 
   const zIndex: number = useMemo(() => {
     return getZIndex(formContent, _panel.key);
@@ -52,9 +61,9 @@ const Panel = ({renderItem, formContent, _panel}: PanelProps) => {
             ? 100
             : 90
       }%`,
-      paddingHorizontal: _panel.parent != null ? null : 17,
-      paddingLeft: _panel.parent != null ? 5 : null,
-      paddingRight: _panel.parent != null ? 5 : null,
+      paddingHorizontal: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
     }),
     [_panel],
   );
@@ -111,25 +120,26 @@ const Panel = ({renderItem, formContent, _panel}: PanelProps) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-  },
-  title: {
-    alignSelf: 'flex-start',
-    marginLeft: 10,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  line: {
-    marginVertical: 4,
-    width: '100%',
-    alignSelf: 'center',
-  },
-  content: {
-    alignItems: 'center',
-    width: '100%',
-  },
-});
+const getStyles = (Colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'column',
+    },
+    title: {
+      alignSelf: 'flex-start',
+      fontSize: 13,
+      fontWeight: '800',
+      color: Colors.secondaryColor_dark.background,
+    },
+    line: {
+      marginVertical: 4,
+      width: '100%',
+      alignSelf: 'center',
+    },
+    content: {
+      alignItems: 'center',
+      width: '100%',
+    },
+  });
 
 export default Panel;

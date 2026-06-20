@@ -22,7 +22,7 @@ import {ThemeColors, useThemeColor} from '../../../theme';
 import {Icon} from '../../atoms';
 
 const ICON_SIZE = 24;
-const DEFAULT_BUTTON_SIZE = 35;
+const DEFAULT_BUTTON_SIZE = 42;
 const BIG_BUTTON_SIZE = 75;
 
 interface IncrementButtonProps {
@@ -77,14 +77,15 @@ const IncrementButton = ({
 const getStyles = (Colors: ThemeColors, buttonSize: number) =>
   StyleSheet.create({
     container_icon: {
-      backgroundColor: Colors.screenBackgroundColor,
+      backgroundColor: Colors.backgroundColor,
       justifyContent: 'center',
       alignItems: 'center',
       marginHorizontal: 8,
       padding: 2,
       paddingHorizontal: 5,
-      borderWidth: 0,
-      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: Colors.secondaryColor.background,
+      borderRadius: 11,
       width: buttonSize ?? DEFAULT_BUTTON_SIZE,
       height: buttonSize ?? DEFAULT_BUTTON_SIZE,
     },

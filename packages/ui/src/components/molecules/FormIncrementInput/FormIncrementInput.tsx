@@ -82,7 +82,10 @@ const FormIncrementInput = ({
 
   return (
     <View testID="formIncrementContainer" style={[styles.container, style]}>
-      <Text style={styles.title}>{title}</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{title}</Text>
+        {_required && <View style={styles.requiredDot} />}
+      </View>
       <View
         testID="formIncrementInnerContainer"
         style={[
@@ -119,9 +122,23 @@ const getStyles = (Colors: ThemeColors, required: boolean) =>
   StyleSheet.create({
     container: {
       width: '100%',
+      rowGap: 6,
+    },
+    titleContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      columnGap: 6,
     },
     title: {
-      marginLeft: 10,
+      fontSize: 13,
+      fontWeight: '800',
+      color: Colors.secondaryColor_dark.background,
+    },
+    requiredDot: {
+      width: 6,
+      height: 6,
+      borderRadius: 3,
+      backgroundColor: Colors.errorColor.background,
     },
     increment: {
       flexDirection: 'row',
@@ -130,6 +147,8 @@ const getStyles = (Colors: ThemeColors, required: boolean) =>
     },
     content: {
       width: '100%',
+      height: 56,
+      minHeight: 56,
       borderColor: required
         ? Colors.errorColor.background
         : Colors.secondaryColor.background,
@@ -137,7 +156,9 @@ const getStyles = (Colors: ThemeColors, required: boolean) =>
       marginHorizontal: 0,
     },
     containerInput: {
-      fontSize: 15,
+      fontSize: 20,
+      fontWeight: '800',
+      textAlign: 'center',
     },
   });
 

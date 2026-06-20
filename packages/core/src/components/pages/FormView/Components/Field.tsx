@@ -125,10 +125,10 @@ const Field = ({
 
   const fieldStyle: StyleProp<ViewStyle> = useMemo(
     () => ({
-      width: `${_field.parentPanel != null ? 100 : 90}%`,
+      width: '100%',
       alignSelf: 'center',
     }),
-    [_field],
+    [],
   );
 
   const getComponent = () => {
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.7,
   },
   error: {
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
   },
 });

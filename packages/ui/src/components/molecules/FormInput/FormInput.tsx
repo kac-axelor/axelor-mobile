@@ -93,7 +93,12 @@ const FormInput = ({
 
   return (
     <View testID="formInputContainer" style={[styles.container, style]}>
-      {!checkNullString(title) && <Text style={styles.title}>{title}</Text>}
+      {!checkNullString(title) && (
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{title}</Text>
+          {_required && <View style={styles.requiredDot} />}
+        </View>
+      )}
       <View
         testID="formInputInnerContainer"
         style={[
@@ -102,6 +107,7 @@ const FormInput = ({
           commonStyles.filterAlign,
           styles.content,
           isFocused && commonStyles.inputFocused,
+          multiline && styles.multiline,
           adjustHeightWithLines && {height: undefined},
         ]}>
         <Input
@@ -123,8 +129,8 @@ const FormInput = ({
 const getStyles = (Colors: ThemeColors, _required: boolean) =>
   StyleSheet.create({
     container: {
-      width: '90%',
-      minHeight: 62,
+      width: '100%',
+      rowGap: 6,
     },
     content: {
       width: '100%',
@@ -135,11 +141,29 @@ const getStyles = (Colors: ThemeColors, _required: boolean) =>
       marginHorizontal: 0,
       minHeight: 40,
     },
+    multiline: {
+      minHeight: 96,
+      alignItems: 'flex-start',
+      paddingVertical: 13,
+    },
     input: {
       width: '100%',
     },
+    titleContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      columnGap: 6,
+    },
     title: {
-      marginLeft: 10,
+      fontSize: 13,
+      fontWeight: '800',
+      color: Colors.secondaryColor_dark.background,
+    },
+    requiredDot: {
+      width: 6,
+      height: 6,
+      borderRadius: 3,
+      backgroundColor: Colors.errorColor.background,
     },
   });
 

@@ -22,7 +22,9 @@ import {
   Button,
   KeyboardAvoidingScrollView,
   Screen,
+  ThemeColors,
   WarningCard,
+  useThemeColor,
 } from '@axelor/aos-mobile-ui';
 import {useDispatch, useSelector} from '../../../redux/hooks';
 import {useTranslator} from '../../../i18n';
@@ -75,9 +77,12 @@ const FormView = ({
   hideButtonBackground = false,
 }: FormProps) => {
   const I18n = useTranslator();
+  const Colors = useThemeColor();
   const dispatch = useDispatch();
 
   const {config} = useFormConfig(formKey);
+
+  const styles = useMemo(() => getStyles(Colors), [Colors]);
 
   const storeState = useSelector((state: any) => state);
   const {record} = useSelector((state: any) => state.form);
@@ -345,7 +350,7 @@ const FormView = ({
           />
         )}
         <View style={[styles.container, style, getZIndexStyle(5)]}>
-          {formContent.map(renderItem)}
+          <View style={styles.formCard}>{formContent.map(renderItem)}</View>
         </View>
       </KeyboardAvoidingScrollView>
       <FloatingTools
@@ -364,14 +369,23 @@ const FormView = ({
   );
 };
 
-const styles = StyleSheet.create({
-  scroll: {
-    height: null,
-  },
-  container: {
-    alignItems: 'center',
-    paddingBottom: 125,
-  },
-});
+const getStyles = (Colors: ThemeColors) =>
+  StyleSheet.create({
+    scroll: {
+      height: null,
+    },
+    container: {
+      alignItems: 'center',
+      paddingBottom: 125,
+    },
+    formCard: {
+      width: '92%',
+      alignSelf: 'center',
+      backgroundColor: Colors.backgroundColor,
+      borderRadius: 20,
+      paddingHorizontal: 18,
+      paddingVertical: 10,
+    },
+  });
 
 export default FormView;
