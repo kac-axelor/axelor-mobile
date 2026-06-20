@@ -16,15 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, {useEffect, useMemo} from 'react';
-import {StyleSheet, View} from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-} from 'react-native-reanimated';
+import React, {useMemo} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Color, useThemeColor} from '../../../theme';
-import {Button, NumberBubble} from '../../molecules';
+import {Icon} from '../../atoms';
+import {NumberBubble} from '../../molecules';
 import ItemTitle from './ItemTitle';
 
 const BarItem = ({
@@ -32,7 +28,6 @@ const BarItem = ({
   color,
   title,
   isSelected = false,
-  size,
   disabled,
   indicator,
   onPress,
@@ -41,24 +36,12 @@ const BarItem = ({
   color?: Color;
   title?: string;
   isSelected: boolean;
-  size: number;
+  size?: number;
   disabled?: boolean;
   indicator?: number;
   onPress: () => void;
 }) => {
   const Colors = useThemeColor();
-
-  const scale = useSharedValue(0.8);
-
-  useEffect(() => {
-    scale.value = withSpring(isSelected ? 1 : 0.8);
-  }, [isSelected, scale]);
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{scale: scale.value}],
-    };
-  });
 
   const buttonColor: Color = useMemo(
     () => color ?? Colors.primaryColor,
@@ -66,29 +49,45 @@ const BarItem = ({
   );
 
   return (
-    <View style={styles.container}>
-      <Animated.View style={animatedStyle}>
-        <Button
-          iconName={iconName}
-          color={buttonColor}
-          disabled={disabled}
-          onPress={onPress}
-          width={size}
-          style={{height: size}}
-          iconSize={size * 0.6}
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      disabled={disabled}
+      activeOpacity={0.7}>
+      <View
+        style={[
+          styles.pill,
+          {
+            backgroundColor: isSelected
+              ? buttonColor.background_light
+              : 'transparent',
+          },
+        ]}>
+        <Icon
+          name={iconName}
+          size={20}
+          color={
+            isSelected
+              ? buttonColor.background
+              : Colors.secondaryColor_dark.background
+          }
         />
-      </Animated.View>
-      {indicator > 0 && (
-        <Animated.View style={[animatedStyle, styles.indicator]}>
-          <NumberBubble
-            number={indicator}
-            color={buttonColor}
-            isNeutralBackground={true}
-          />
-        </Animated.View>
-      )}
-      <ItemTitle title={title} style={{width: size}} />
-    </View>
+        {indicator > 0 && (
+          <View style={styles.indicator}>
+            <NumberBubble
+              number={indicator}
+              color={buttonColor}
+              isNeutralBackground={true}
+            />
+          </View>
+        )}
+      </View>
+      <ItemTitle
+        title={title}
+        isSelected={isSelected}
+        activeColor={buttonColor.background}
+      />
+    </TouchableOpacity>
   );
 };
 
@@ -97,7 +96,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     marginHorizontal: 2,
-    marginBottom: 6,
+  },
+  pill: {
+    width: 42,
+    height: 34,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   indicator: {
     position: 'absolute',
