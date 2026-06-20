@@ -16,18 +16,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {UserSearchBar, useSelector} from '@axelor/aos-mobile-core';
-import {ToggleButton} from '@axelor/aos-mobile-ui';
+import React, {useMemo} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  UserSearchBar,
+  useNavigation,
+  usePermitted,
+  useSelector,
+} from '@axelor/aos-mobile-core';
+import {
+  Icon,
+  ThemeColors,
+  ToggleButton,
+  useThemeColor,
+} from '@axelor/aos-mobile-ui';
 
 interface AuthorFilterProps {
   author: any;
   setAuthor: (author: any) => void;
+  parent?: any;
 }
 
-const AuthorFilter = ({author, setAuthor}: AuthorFilterProps) => {
+const AuthorFilter = ({author, setAuthor, parent}: AuthorFilterProps) => {
+  const Colors = useThemeColor();
+  const navigation = useNavigation();
+  const {canCreate} = usePermitted({
+    modelName: 'com.axelor.dms.db.DMSFile',
+  });
+
   const {user} = useSelector(state => state.user);
+  const {mobileSettings} = useSelector((state: any) => state.appConfig);
+
+  const styles = useMemo(() => getStyles(Colors), [Colors]);
+
+  const canAdd =
+    canCreate &&
+    (mobileSettings?.isFolderCreationAllowed ||
+      mobileSettings?.isFileCreationAllowed);
 
   return (
     <View style={styles.container}>
@@ -47,27 +72,52 @@ const AuthorFilter = ({author, setAuthor}: AuthorFilterProps) => {
         onChange={setAuthor}
         showTitle={false}
       />
+      {canAdd && (
+        <TouchableOpacity
+          style={styles.addButton}
+          activeOpacity={0.9}
+          onPress={() =>
+            navigation.navigate('DocumentFormScreen', {parent})
+          }>
+          <Icon
+            name="plus-lg"
+            size={22}
+            color={Colors.backgroundColor}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    zIndex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignSelf: 'center',
-    alignItems: 'center',
-    width: '90%',
-  },
-  toggleButton: {
-    width: '10%',
-    height: 40,
-    marginVertical: 0,
-  },
-  userSearchBar: {
-    width: '88%',
-  },
-});
+const getStyles = (Colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      zIndex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignSelf: 'center',
+      alignItems: 'center',
+      width: '90%',
+      columnGap: 8,
+    },
+    toggleButton: {
+      width: 46,
+      height: 46,
+      borderRadius: 13,
+      marginVertical: 0,
+    },
+    userSearchBar: {
+      flex: 1,
+    },
+    addButton: {
+      width: 46,
+      height: 46,
+      borderRadius: 13,
+      backgroundColor: Colors.primaryColor.background,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
 
 export default AuthorFilter;

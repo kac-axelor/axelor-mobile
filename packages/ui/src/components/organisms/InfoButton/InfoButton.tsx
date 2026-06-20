@@ -22,6 +22,7 @@ import {CardIconButton, CardIndicator} from '../../molecules';
 
 interface InfoButtonProps {
   style?: any;
+  cardStyle?: any;
   textIndicationStyle?: any;
   iconName: string;
   iconColor: string;
@@ -34,6 +35,7 @@ interface InfoButtonProps {
 
 const InfoButton = ({
   style,
+  cardStyle,
   textIndicationStyle,
   iconName,
   iconColor,
@@ -55,6 +57,7 @@ const InfoButton = ({
       handleClose={() => setIsVisible(false)}
       space={space}>
       <CardIconButton
+        cardStyle={cardStyle}
         iconName={iconName}
         iconColor={iconColor}
         disabled={disabled}

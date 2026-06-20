@@ -37,6 +37,7 @@ export interface Action {
 
 interface ActionCardProps {
   style?: any;
+  actionButtonStyle?: any;
   children: any;
   actionList: Action[];
   quickAction?: Action;
@@ -47,6 +48,7 @@ interface ActionCardProps {
 
 const ActionCard = ({
   style,
+  actionButtonStyle,
   children,
   actionList,
   quickAction,
@@ -138,7 +140,11 @@ const ActionCard = ({
         (isLastList && index === list.length - 1 && isDifferentLength);
       return (
         <InfoButton
-          style={{width: isDoubleWidth ? ACTION_WIDTH * 2 : ACTION_WIDTH}}
+          style={[
+            {width: isDoubleWidth ? ACTION_WIDTH * 2 : ACTION_WIDTH},
+            actionButtonStyle,
+          ]}
+          cardStyle={actionButtonStyle}
           iconName={action.iconName}
           iconColor={getIconColor(action)}
           indication={action.helper}
@@ -166,7 +172,8 @@ const ActionCard = ({
           style={getVerticalActionStyle(action2 == null || action3 === null)}
           key={index}>
           <InfoButton
-            style={{width: ACTION_WIDTH}}
+            style={[{width: ACTION_WIDTH}, actionButtonStyle]}
+            cardStyle={actionButtonStyle}
             iconName={action1.iconName}
             iconColor={getIconColor(action1)}
             indication={action1.helper}
@@ -175,7 +182,8 @@ const ActionCard = ({
           />
           {action2 != null && (!isThreeActions || action3 != null) && (
             <InfoButton
-              style={{width: ACTION_WIDTH}}
+              style={[{width: ACTION_WIDTH}, actionButtonStyle]}
+              cardStyle={actionButtonStyle}
               iconName={action2.iconName}
               iconColor={getIconColor(action2)}
               indication={action2.helper}
@@ -236,7 +244,8 @@ const ActionCard = ({
       <View style={styles.quickActionContainer}>
         {_quickAction != null && _actionList.length === 1 && (
           <InfoButton
-            style={getVerticalActionStyle(false)}
+            style={[getVerticalActionStyle(false), actionButtonStyle]}
+            cardStyle={actionButtonStyle}
             iconName={actionList[0].iconName}
             iconColor={getIconColor(actionList[0])}
             indication={actionList[0].helper}
@@ -247,9 +256,13 @@ const ActionCard = ({
         {displaySeeActionsButton &&
           (!isActionsVisible || _quickAction != null) && (
             <InfoButton
-              style={getVerticalActionStyle(
-                _quickAction == null || _quickAction.large,
-              )}
+              style={[
+                getVerticalActionStyle(
+                  _quickAction == null || _quickAction.large,
+                ),
+                actionButtonStyle,
+              ]}
+              cardStyle={actionButtonStyle}
               iconName="three-dots"
               iconColor={Colors.secondaryColor_dark.background}
               indication={translator('Base_SeeActions')}
@@ -258,9 +271,13 @@ const ActionCard = ({
           )}
         {_quickAction != null && (
           <InfoButton
-            style={getVerticalActionStyle(
-              _actionList.length === 0 || _quickAction.large,
-            )}
+            style={[
+              getVerticalActionStyle(
+                _actionList.length === 0 || _quickAction.large,
+              ),
+              actionButtonStyle,
+            ]}
+            cardStyle={actionButtonStyle}
             iconName={_quickAction.iconName}
             iconColor={getIconColor(_quickAction)}
             indication={_quickAction.helper}

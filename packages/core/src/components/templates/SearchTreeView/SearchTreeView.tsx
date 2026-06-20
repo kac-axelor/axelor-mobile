@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   ActionCardType,
@@ -259,6 +259,18 @@ const SearchTreeView = ({
     searchPlaceholder,
   ]);
 
+  const rootBreadcrumbLabel = useMemo(() => {
+    const directoryCount = Array.isArray(list)
+      ? branchCondition
+        ? list.filter(branchCondition).length
+        : list.length
+      : 0;
+
+    return `${I18n.t('Base_Root')} · ${directoryCount} ${I18n.t(
+      'Base_Folders',
+    )}`;
+  }, [I18n, branchCondition, list]);
+
   return (
     <View style={styles.container}>
       <HeaderContainer
@@ -269,12 +281,12 @@ const SearchTreeView = ({
           </>
         }
         fixedItems={
-          <>
+          <View style={styles.filterCard}>
             {topFixedItems}
             {!isHideableParentSearch && renderParentSearchBar()}
             {!isHideableSearch && renderSearchBar()}
             {fixedItems}
-          </>
+          </View>
         }
         chipComponent={chipComponent}
         expandableFilter={expandableFilter}>
@@ -285,6 +297,7 @@ const SearchTreeView = ({
         <Breadcrumb
           style={styles.breadcrumb}
           disabled={!manageParentFilter}
+          rootLabel={rootBreadcrumbLabel}
           items={parent.map((item, index) =>
             item === EMPTY_PARENT
               ? EMPTY_PARENT
@@ -323,6 +336,11 @@ const SearchTreeView = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  // HeaderContainer renders the card surface; this layer only adds inner padding + row spacing
+  filterCard: {
+    padding: 13,
+    rowGap: 10,
   },
   breadcrumb: {
     marginTop: 8,

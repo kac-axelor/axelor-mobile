@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {useThemeColor} from '../../../theme';
+import {ThemeColors, useThemeColor} from '../../../theme';
 import {Icon, Text} from '../../atoms';
 
 const ICON_WIDTH = 18;
@@ -34,6 +34,7 @@ interface BreadcrumbProps {
   style?: any;
   disabled?: boolean;
   items: Item[];
+  rootLabel?: string;
   onHomePress: () => void;
 }
 
@@ -41,9 +42,12 @@ const Breadcrumb = ({
   style,
   disabled = false,
   items,
+  rootLabel,
   onHomePress,
 }: BreadcrumbProps) => {
   const Colors = useThemeColor();
+
+  const styles = useMemo(() => getStyles(Colors), [Colors]);
 
   const [visibleItems, setVisibleItems] = useState(items);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -98,6 +102,9 @@ const Breadcrumb = ({
         touchable={!disabled}
         onPress={onHomePress}
       />
+      {visibleItems.length === 0 && rootLabel != null && (
+        <Text style={styles.rootLabel}>{rootLabel}</Text>
+      )}
       {visibleItems.map((item, index) => (
         <View
           style={styles.contentContainer}
@@ -119,19 +126,28 @@ const Breadcrumb = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    width: '90%',
-    height: 25,
-    flexDirection: 'row',
-    alignSelf: 'center',
-  },
-  contentContainer: {
-    flexDirection: 'row',
-  },
-  textContainer: {
-    justifyContent: 'center',
-  },
-});
+const getStyles = (Colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      width: '90%',
+      height: 28,
+      flexDirection: 'row',
+      alignItems: 'center',
+      alignSelf: 'center',
+      columnGap: 4,
+    },
+    contentContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    textContainer: {
+      justifyContent: 'center',
+    },
+    rootLabel: {
+      fontSize: 13,
+      fontWeight: '700',
+      color: Colors.secondaryColor_dark.background,
+    },
+  });
 
 export default Breadcrumb;

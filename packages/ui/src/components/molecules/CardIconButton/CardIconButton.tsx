@@ -23,6 +23,7 @@ import {useThemeColor} from '../../../theme';
 
 interface CardIconButtonProps {
   style?: any;
+  cardStyle?: any;
   iconName: string;
   iconColor: string;
   disabled?: boolean;
@@ -32,6 +33,7 @@ interface CardIconButtonProps {
 
 const CardIconButton = ({
   style,
+  cardStyle,
   iconName,
   iconColor,
   disabled = false,
@@ -53,7 +55,7 @@ const CardIconButton = ({
       onPress={onPress}
       activeOpacity={0.9}
       testID="cardIconButtonContainer">
-      <Card style={styles.cardContainer}>
+      <Card style={[styles.cardContainer, cardStyle]}>
         <Icon size={20} name={iconName} color={_iconColor} />
       </Card>
     </TouchableOpacity>

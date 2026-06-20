@@ -17,6 +17,7 @@
  */
 
 import React, {useCallback, useMemo} from 'react';
+import {StyleSheet} from 'react-native';
 import {
   downloadFileOnPhone,
   useDispatch,
@@ -80,6 +81,7 @@ const DocumentActionCard = ({
 
   return (
     <ActionCard
+      actionButtonStyle={styles.actionButton}
       actionList={[
         {
           iconName: isFavorite ? 'star-fill' : 'star',
@@ -133,5 +135,17 @@ const DocumentActionCard = ({
     </ActionCard>
   );
 };
+
+const styles = StyleSheet.create({
+  actionButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 9,
+    padding: 0,
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    paddingRight: 0,
+  },
+});
 
 export default DocumentActionCard;

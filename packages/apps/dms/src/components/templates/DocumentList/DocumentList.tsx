@@ -188,10 +188,17 @@ const DocumentList = ({
             }
           />
         )}
-        headerChildren={<AuthorFilter author={author} setAuthor={setAuthor} />}
+        headerChildren={
+          <AuthorFilter
+            author={author}
+            setAuthor={setAuthor}
+            parent={parentList.at(-1)}
+          />
+        }
         chipComponent={
           <ChipSelect
             mode="multi"
+            variant="outlined"
             selectionItems={File.getFileExtensionList(Colors)}
             onChangeValue={setSelectedExtensions}
             showClearButton
