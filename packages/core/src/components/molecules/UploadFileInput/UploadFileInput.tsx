@@ -39,7 +39,7 @@ import {
 } from '../../../features/cameraSlice';
 
 const DEFAULT_MAX_FILE_SIZE = 5000000;
-const BUTTON_SIZE = 28;
+const BUTTON_SIZE = 24;
 
 const isMetaFile = file => {
   return (
@@ -254,6 +254,25 @@ const UploadFileInput = ({
     return displayPreview && selectedFile != null;
   }, [displayPreview, selectedFile]);
 
+  const canDelete = useMemo(
+    () => canDeleteFile && selectedFile != null && !readonly,
+    [canDeleteFile, selectedFile, readonly],
+  );
+  const canView = useMemo(() => isMetaFile(selectedFile), [selectedFile]);
+  const canCamera = useMemo(
+    () => selectedFile == null && !readonly && _enablePicture,
+    [selectedFile, readonly, _enablePicture],
+  );
+  const canUpload = useMemo(
+    () => selectedFile == null && !readonly,
+    [selectedFile, readonly],
+  );
+
+  const hasAction = useMemo(
+    () => canDelete || canView || canCamera || canUpload,
+    [canDelete, canView, canCamera, canUpload],
+  );
+
   return (
     <View style={[styles.container, style]}>
       {!checkNullString(title) && <Text style={styles.title}>{title}</Text>}
@@ -276,13 +295,16 @@ const UploadFileInput = ({
             defaultIconSize={60}
           />
         ) : null}
-        <Text style={styles.fileName} numberOfLines={1}>
+        <Text
+          style={selectedFile ? styles.value : styles.placeholder}
+          numberOfLines={1}>
           {selectedFile
             ? selectedFile.name || selectedFile.fileName
             : I18n.t('Base_ChooseFile')}
         </Text>
+        {hasAction && <View style={styles.divider} />}
         <View style={styles.buttons}>
-          {canDeleteFile && selectedFile != null && !readonly && (
+          {canDelete && (
             <Icon
               name="x-lg"
               size={BUTTON_SIZE}
@@ -291,7 +313,7 @@ const UploadFileInput = ({
               style={styles.action}
             />
           )}
-          {isMetaFile(selectedFile) && (
+          {canView && (
             <Icon
               name="arrows-angle-expand"
               size={BUTTON_SIZE}
@@ -300,7 +322,7 @@ const UploadFileInput = ({
               style={styles.action}
             />
           )}
-          {selectedFile == null && !readonly && _enablePicture && (
+          {canCamera && (
             <Icon
               name="camera-fill"
               size={BUTTON_SIZE}
@@ -309,7 +331,7 @@ const UploadFileInput = ({
               style={styles.action}
             />
           )}
-          {selectedFile == null && !readonly && (
+          {canUpload && (
             <Icon
               name="upload"
               size={BUTTON_SIZE}
@@ -344,18 +366,34 @@ const getStyles = (Colors: ThemeColors, _required: boolean) =>
         : Colors.secondaryColor.background,
       borderWidth: 1,
       marginHorizontal: 0,
-      height: null,
-      minHeight: 40,
     },
     title: {
       marginLeft: 10,
+      fontSize: 13,
+      fontWeight: '800',
+      color: Colors.secondaryColor_dark.background,
     },
-    fileName: {
-      width: '60%',
+    placeholder: {
+      flex: 1,
+      fontSize: 15,
+      fontWeight: '600',
+      color: Colors.secondaryColor_dark.background,
+    },
+    value: {
+      flex: 1,
+      fontSize: 15,
+      fontWeight: '700',
+      color: Colors.text,
+    },
+    divider: {
+      width: 1,
+      height: 28,
+      backgroundColor: Colors.secondaryColor.background_light,
+      marginHorizontal: 8,
     },
     buttons: {
       flexDirection: 'row',
-      justifyContent: 'space-around',
+      justifyContent: 'flex-end',
       alignItems: 'center',
     },
     action: {
