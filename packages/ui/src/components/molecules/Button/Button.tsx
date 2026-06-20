@@ -108,7 +108,7 @@ const Button = ({
           style={[styles.text, styleTxt]}
           numberOfLines={numberOfLines}
           adjustsFontSizeToFit
-          fontSize={17}
+          fontSize={16}
           textColor={buttonColor.foreground}>
           {title}
         </Text>
@@ -126,7 +126,7 @@ const getStyles = (color: Color, width: DimensionValue) =>
       gap: 10,
     },
     text: {
-      fontWeight: 'bold',
+      fontWeight: '700',
       textAlign: 'center',
       textAlignVertical: 'center',
       flexShrink: 1,

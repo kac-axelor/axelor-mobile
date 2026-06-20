@@ -75,7 +75,7 @@ const getStyles = (size: number, square: boolean) =>
     button: {
       width: size,
       height: size,
-      borderRadius: square ? 7 : size,
+      borderRadius: square ? 11 : size,
     },
     icon: {
       marginHorizontal: 0,
