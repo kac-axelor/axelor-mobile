@@ -22,7 +22,6 @@ import {
   getCommonStyles,
   Icon,
   IconInput,
-  LabelText,
   useThemeColor,
 } from '@axelor/aos-mobile-ui';
 import useTranslator from '../../../i18n/hooks/use-translator';
@@ -52,17 +51,6 @@ const UrlInput = ({
     return null;
   }
 
-  if (readOnly) {
-    return (
-      <LabelText
-        iconName="link-45deg"
-        title={value}
-        style={styles.labText}
-        size={20}
-      />
-    );
-  }
-
   return (
     <IconInput
       style={[style, showRequiredFields ? commonStyles.inputFocused : null]}
@@ -74,20 +62,24 @@ const UrlInput = ({
       onEndFocus={onEndFocus}
       placeholder={I18n.t('Base_Connection_Url')}
       leftIconsList={[<Icon name="link-45deg" size={17} style={styles.icon} />]}
-      rightIconsList={[
-        <Icon
-          name="qr-code-scan"
-          size={20}
-          color={
-            scanIconColor == null
-              ? Colors.secondaryColor_dark.background
-              : scanIconColor
-          }
-          touchable={true}
-          style={styles.icon}
-          onPress={onScanPress}
-        />,
-      ]}
+      rightIconsList={
+        readOnly
+          ? []
+          : [
+              <Icon
+                name="qr-code-scan"
+                size={20}
+                color={
+                  scanIconColor == null
+                    ? Colors.secondaryColor_dark.background
+                    : scanIconColor
+                }
+                touchable={true}
+                style={styles.icon}
+                onPress={onScanPress}
+              />,
+            ]
+      }
     />
   );
 };
@@ -96,11 +88,6 @@ const styles = StyleSheet.create({
   icon: {
     width: '7%',
     margin: 3,
-  },
-  labText: {
-    width: '100%',
-    marginVertical: 10,
-    marginLeft: 5,
   },
 });
 

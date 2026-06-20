@@ -17,7 +17,7 @@
  */
 
 import React, {useMemo} from 'react';
-import {StyleSheet, View, Modal} from 'react-native';
+import {StyleSheet, View, Modal, TouchableOpacity} from 'react-native';
 import {useThemeColor} from '../../../theme';
 import {Card, Text, Icon} from '../../atoms';
 import Button, {ButtonProps} from '../Button/Button';
@@ -31,6 +31,7 @@ interface ButtonConfig extends ButtonProps {
 interface CancelButtonConfig extends ButtonConfig {
   showInHeader?: boolean;
   headerSize?: number;
+  headerBoxed?: boolean;
 }
 
 interface AlertProps {
@@ -72,6 +73,7 @@ const Alert = ({
       hide: false,
       showInHeader: false,
       headerSize: 20,
+      headerBoxed: false,
       width: DEFAULT_BUTTON_WIDTH,
       ...cancelButtonConfig,
     };
@@ -123,7 +125,17 @@ const Alert = ({
               </Text>
             )}
             {!_cancelButtonConfig?.hide &&
-              _cancelButtonConfig?.showInHeader && (
+              _cancelButtonConfig?.showInHeader &&
+              (_cancelButtonConfig?.headerBoxed ? (
+                <TouchableOpacity
+                  style={[
+                    styles.headerCancelBox,
+                    {backgroundColor: Colors.secondaryColor.background_light},
+                  ]}
+                  onPress={_cancelButtonConfig?.onPress}>
+                  <Icon name="x-lg" size={_cancelButtonConfig?.headerSize} />
+                </TouchableOpacity>
+              ) : (
                 <Icon
                   name="x-lg"
                   size={_cancelButtonConfig?.headerSize}
@@ -131,7 +143,7 @@ const Alert = ({
                   touchable
                   onPress={_cancelButtonConfig?.onPress}
                 />
-              )}
+              ))}
           </View>
           {children}
           {(isCancelButtonDisplayedBottom ||
@@ -184,6 +196,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: 0,
+  },
+  headerCancelBox: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonsContainer: {
     width: '100%',

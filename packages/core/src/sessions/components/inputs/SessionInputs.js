@@ -82,6 +82,7 @@ const SessionInputs = ({
   mode,
   showPopup,
   onValidation,
+  onDelete,
   hidden,
   saveBeforeScan = () => {},
 }) => {
@@ -315,6 +316,26 @@ const SessionInputs = ({
       />
       {loading ? (
         <ActivityIndicator size="large" />
+      ) : mode === MODE.connection && onDelete != null ? (
+        <View style={styles.actionRow}>
+          <View style={styles.loginWrapper}>
+            <Button
+              title={I18n.t('Base_Connection_Login')}
+              onPress={() => onValidation(form)}
+              disabled={disabled}
+              onDisabledPress={() => setShowRequiredFields(true)}
+              width="100%"
+              style={styles.rowButton}
+            />
+          </View>
+          <Button
+            iconName="trash3-fill"
+            color={Colors.errorColor}
+            onPress={onDelete}
+            width={50}
+            style={styles.deleteButton}
+          />
+        </View>
       ) : (
         <Button
           title={I18n.t(
@@ -351,6 +372,24 @@ const getStyles = (mode, isKeyboardOpen) =>
       marginVertical: 15,
       width: 150,
       height: 30,
+    },
+    actionRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      marginVertical: 15,
+    },
+    loginWrapper: {
+      flex: 1,
+      marginRight: 10,
+    },
+    rowButton: {
+      marginVertical: 0,
+    },
+    deleteButton: {
+      marginVertical: 0,
+      paddingHorizontal: 0,
     },
   });
 

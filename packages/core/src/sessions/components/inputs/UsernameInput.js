@@ -22,7 +22,6 @@ import {
   getCommonStyles,
   Icon,
   IconInput,
-  LabelText,
   useThemeColor,
 } from '@axelor/aos-mobile-ui';
 import useTranslator from '../../../i18n/hooks/use-translator';
@@ -47,17 +46,6 @@ const UsernameInput = ({
     [Colors, value],
   );
 
-  if (readOnly) {
-    return (
-      <LabelText
-        iconName="person-fill"
-        title={value}
-        style={styles.labText}
-        size={20}
-      />
-    );
-  }
-
   return (
     <IconInput
       style={[style, showRequiredFields ? commonStyles.inputFocused : null]}
@@ -71,7 +59,7 @@ const UsernameInput = ({
         <Icon name="person-fill" size={17} style={styles.icon} />,
       ]}
       rightIconsList={
-        showScanIcon
+        !readOnly && showScanIcon
           ? [
               <Icon
                 name="qr-code-scan"
@@ -96,11 +84,6 @@ const styles = StyleSheet.create({
   icon: {
     width: '7%',
     margin: 3,
-  },
-  labText: {
-    width: '100%',
-    marginVertical: 10,
-    marginLeft: 5,
   },
 });
 

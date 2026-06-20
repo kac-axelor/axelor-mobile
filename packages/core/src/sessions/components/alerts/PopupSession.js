@@ -19,7 +19,7 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {Alert, Icon, useThemeColor} from '@axelor/aos-mobile-ui';
+import {Alert} from '@axelor/aos-mobile-ui';
 import {ErrorText, SessionInputs} from '../../components';
 import {login} from '../../../features/authSlice';
 import {sessionStorage} from '../..';
@@ -32,7 +32,6 @@ const PopupSession = ({
   showUrlInput,
   testInstanceConfig,
 }) => {
-  const Colors = useThemeColor();
   const dispatch = useDispatch();
 
   const {loading, error} = useSelector(state => state.auth);
@@ -76,6 +75,7 @@ const PopupSession = ({
       cancelButtonConfig={{
         hide: loading,
         showInHeader: true,
+        headerBoxed: true,
         onPress: handleClose,
       }}>
       <View style={styles.popupContainer}>
@@ -91,14 +91,7 @@ const PopupSession = ({
           mode="connection"
           showPopup={setIsOpen}
           onValidation={onPressLogin}
-        />
-        <Icon
-          name="trash3-fill"
-          size={20}
-          color={Colors.errorColor.background}
-          touchable={true}
-          onPress={deleteSession}
-          style={styles.binIcon}
+          onDelete={deleteSession}
         />
       </View>
     </Alert>
@@ -113,11 +106,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-  },
-  binIcon: {
-    position: 'absolute',
-    right: '1%',
-    bottom: '5%',
   },
 });
 
