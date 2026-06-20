@@ -17,13 +17,24 @@
  */
 
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import {fireEvent} from '@testing-library/react-native';
 import {IconInput, Icon} from '@axelor/aos-mobile-ui';
 import {getDefaultThemeColors, setup} from '../../tools';
 
-describe('IconInput Component', () => {
-  const Colors = getDefaultThemeColors();
+const Colors = getDefaultThemeColors();
 
+const countDividers = root =>
+  root.findAllByType(View).filter(viewElement => {
+    const flatStyle = StyleSheet.flatten(viewElement.props.style) ?? {};
+    return (
+      flatStyle.width === 1 &&
+      flatStyle.height === 24 &&
+      flatStyle.backgroundColor === Colors.secondaryColor.background
+    );
+  }).length;
+
+describe('IconInput Component', () => {
   const setupIconInput = overrideProps =>
     setup({
       Component: IconInput,
@@ -58,6 +69,53 @@ describe('IconInput Component', () => {
     expect(getAllByTestId(/^icon-.*/)).toHaveLength(
       props.leftIconsList.length + props.rightIconsList.length,
     );
+  });
+
+  it('applies the new filled, flat container styling', () => {
+    const {getByTestId} = setupIconInput();
+
+    expect(getByTestId('iconInputContainer')).toHaveStyle({
+      backgroundColor: Colors.screenBackgroundColor,
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: Colors.secondaryColor.background,
+      minHeight: 52,
+      paddingLeft: 16,
+      paddingRight: 12,
+      marginVertical: 8,
+    });
+  });
+
+  it('inserts a divider before every right icon except the first', () => {
+    const {UNSAFE_root} = setupIconInput({
+      rightIconsList: [
+        <Icon name="x-lg" />,
+        <Icon name="search" />,
+        <Icon name="qr-code-scan" />,
+      ],
+    });
+
+    expect(countDividers(UNSAFE_root)).toBe(2);
+  });
+
+  it('renders no divider when there is a single right icon', () => {
+    const {UNSAFE_root} = setupIconInput({
+      rightIconsList: [<Icon name="search" />],
+    });
+
+    expect(countDividers(UNSAFE_root)).toBe(0);
+  });
+
+  it('ignores hidden icons when placing dividers (no leading divider)', () => {
+    const {UNSAFE_root} = setupIconInput({
+      rightIconsList: [
+        <Icon name="x-lg" visible={false} />,
+        <Icon name="search" />,
+        <Icon name="qr-code-scan" />,
+      ],
+    });
+
+    expect(countDividers(UNSAFE_root)).toBe(1);
   });
 
   it('handles selection and end focus', () => {

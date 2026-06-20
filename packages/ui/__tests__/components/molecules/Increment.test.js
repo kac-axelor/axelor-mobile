@@ -18,9 +18,11 @@
 
 import {fireEvent} from '@testing-library/react-native';
 import {Increment, formatNumber, unformatNumber} from '@axelor/aos-mobile-ui';
-import {setup} from '../../tools';
+import {getDefaultThemeColors, setup} from '../../tools';
 
 describe('Increment component', () => {
+  const Colors = getDefaultThemeColors();
+
   const setupIncrement = overrideProps =>
     setup({
       Component: Increment,
@@ -160,5 +162,17 @@ describe('Increment component', () => {
     const {getByTestId, props} = setupIncrement({style: {color: 'red'}});
 
     expect(getByTestId('incrementContainer')).toHaveStyle(props.style);
+  });
+
+  it('renders +/- buttons as filled, flat, borderless squares', () => {
+    const {getAllByTestId} = setupIncrement();
+
+    getAllByTestId('iconTouchable').forEach(incrementButton => {
+      expect(incrementButton).toHaveStyle({
+        backgroundColor: Colors.screenBackgroundColor,
+        borderRadius: 12,
+        borderWidth: 0,
+      });
+    });
   });
 });

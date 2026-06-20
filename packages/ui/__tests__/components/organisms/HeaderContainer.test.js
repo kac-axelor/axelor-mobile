@@ -102,4 +102,35 @@ describe('HeaderContainer Component', () => {
 
     expect(getByTestId('headerContainerWrapper')).toHaveStyle(props.style);
   });
+
+  it('should render the wrapper as an inset floating card', () => {
+    const {getByTestId} = setupHeaderContainer();
+
+    expect(getByTestId('headerContainerWrapper')).toHaveStyle({
+      borderRadius: 24,
+      marginTop: 8,
+      marginHorizontal: 16,
+      marginBottom: 24,
+    });
+  });
+
+  it('should toggle isVisible when pressing the expand chevron', () => {
+    const {getByTestId, queryByTestId} = setupHeaderContainer();
+
+    expect(getByTestId('children')).toBeTruthy();
+
+    fireEvent.press(getByTestId('headerContainerExpandableIcon'));
+
+    expect(queryByTestId('children')).toBeFalsy();
+
+    fireEvent.press(getByTestId('headerContainerExpandableIcon'));
+
+    expect(getByTestId('children')).toBeTruthy();
+  });
+
+  it('should match the snapshot', () => {
+    const {toJSON} = setupHeaderContainer();
+
+    expect(toJSON()).toMatchSnapshot();
+  });
 });

@@ -48,11 +48,13 @@ describe('Badge Component', () => {
   });
 
   it('should apply default color if color prop is not provided', () => {
-    const {getByTestId} = setupBadge();
+    const {getByTestId, getByText, props} = setupBadge();
 
     expect(getByTestId('bagdeContainer')).toHaveStyle({
       backgroundColor: Colors.primaryColor.background_light,
-      borderColor: Colors.primaryColor.background,
+    });
+    expect(getByText(props.title)).toHaveStyle({
+      color: Colors.primaryColor.background,
     });
   });
 
@@ -63,10 +65,63 @@ describe('Badge Component', () => {
 
     expect(getByTestId('bagdeContainer')).toHaveStyle({
       backgroundColor: props.color.background_light,
-      borderColor: props.color.background,
     });
     expect(getByText(props.title)).toHaveStyle({
-      color: props.color.foreground,
+      color: props.color.background,
+    });
+  });
+
+  it('should render as a filled pill without a border', () => {
+    const {getByTestId} = setupBadge();
+    const container = getByTestId('bagdeContainer');
+
+    expect(container).toHaveStyle({
+      borderWidth: 0,
+      borderRadius: 20,
+    });
+    expect(container).not.toHaveStyle({borderColor: Colors.primaryColor.background});
+  });
+
+  it('should hug its content instead of using a fixed size', () => {
+    const {getByTestId} = setupBadge();
+    const container = getByTestId('bagdeContainer');
+
+    expect(container).toHaveStyle({
+      alignSelf: 'flex-start',
+      paddingHorizontal: 12,
+      paddingVertical: 4,
+    });
+    expect(container).not.toHaveStyle({width: 87, height: 22});
+  });
+
+  it('should use the saturated background color for the text', () => {
+    const {getByText, props} = setupBadge({color: Colors.infoColor});
+
+    expect(getByText(props.title)).toHaveStyle({
+      color: props.color.background,
+    });
+  });
+
+  it('should render the text in bold', () => {
+    const {getByText, props} = setupBadge();
+
+    expect(getByText(props.title)).toHaveStyle({fontWeight: 'bold'});
+  });
+
+  it('should keep the text font size at 14', () => {
+    const {getByText, props} = setupBadge();
+
+    expect(getByText(props.title)).toHaveStyle({fontSize: 14});
+  });
+
+  it('should let txtStyle override the default text styling', () => {
+    const {getByText, props} = setupBadge({
+      txtStyle: {fontWeight: 'normal', color: 'white'},
+    });
+
+    expect(getByText(props.title)).toHaveStyle({
+      fontWeight: 'normal',
+      color: 'white',
     });
   });
 

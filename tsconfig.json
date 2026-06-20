@@ -4,7 +4,8 @@
     "baseUrl": "./packages",
     "paths": {
       "@axelor/*": ["*/src"]
-    }
+    },
+    "types": ["react-native", "jest"]
   },
   "exclude": [
     "node_modules",

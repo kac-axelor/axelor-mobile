@@ -41,6 +41,28 @@ describe('SelectionContainer Component', () => {
     expect(getByTestId('selectionContainerWrapper')).toBeTruthy();
   });
 
+  it('should round the dropdown container with a softer shadow', () => {
+    const {getByTestId} = setupSelectionContainer();
+
+    expect(getByTestId('selectionContainerWrapper')).toHaveStyle({
+      borderRadius: 16,
+      shadowOpacity: 0.12,
+      shadowOffset: {width: 0, height: 4},
+    });
+  });
+
+  it('matches the AutoComplete dropdown snapshot', () => {
+    const {toJSON} = setupSelectionContainer();
+
+    expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('matches the picker dropdown snapshot', () => {
+    const {toJSON} = setupSelectionContainer({isPicker: true});
+
+    expect(toJSON()).toMatchSnapshot();
+  });
+
   it('should render correctly with objectList', () => {
     const {getAllByTestId, props} = setupSelectionContainer();
 
@@ -90,6 +112,53 @@ describe('SelectionContainer Component', () => {
     props.objectList.forEach((_i, idx) => {
       expect(within(_itemElts.at(idx)).getByTestId('icon-square')).toBeTruthy();
     });
+  });
+
+  it('should render a trailing chevron on AutoComplete rows', () => {
+    const {getAllByTestId, props} = setupSelectionContainer();
+
+    const _itemElts = getAllByTestId('selectionItemTouchable');
+
+    props.objectList.forEach((_i, idx) => {
+      expect(
+        within(_itemElts.at(idx)).getByTestId('icon-chevron-right'),
+      ).toBeTruthy();
+    });
+  });
+
+  it('should not render a chevron on picker rows but a leading checkbox', () => {
+    const {getAllByTestId, props} = setupSelectionContainer({isPicker: true});
+
+    const _itemElts = getAllByTestId('selectionItemTouchable');
+
+    props.objectList.forEach((_i, idx) => {
+      expect(
+        within(_itemElts.at(idx)).queryByTestId('icon-chevron-right'),
+      ).toBeNull();
+      expect(within(_itemElts.at(idx)).getByTestId('icon-square')).toBeTruthy();
+    });
+  });
+
+  it('should render a color pill on picker rows when an item color is provided', () => {
+    const coloredList = [
+      {id: '1', name: 'Item 1', color: {background: '#FF0000'}},
+      {id: '2', name: 'Item 2', color: {background: '#00FF00'}},
+    ];
+
+    const {getAllByTestId} = setupSelectionContainer({
+      isPicker: true,
+      objectList: coloredList,
+    });
+
+    const _itemElts = getAllByTestId('selectionItemTouchable');
+
+    coloredList.forEach((_i, idx) => {
+      expect(
+        within(_itemElts.at(idx)).getByTestId('icon-square'),
+      ).toBeTruthy();
+    });
+
+    expect(_itemElts).toHaveLength(coloredList.length);
   });
 
   it('should render an empty SelectionItem when isPicker and emptyValue are true', () => {

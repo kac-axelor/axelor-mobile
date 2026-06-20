@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderContainer Component should match the snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "elevation": 6,
+        "flexDirection": "column",
+        "justifyContent": "center",
+        "marginBottom": 24,
+        "marginHorizontal": 16,
+        "marginTop": 8,
+        "paddingBottom": 12,
+        "shadowColor": "#B5B5C2",
+        "shadowOffset": {
+          "height": 4,
+          "width": 0,
+        },
+        "shadowOpacity": 0.12,
+        "shadowRadius": 6,
+        "zIndex": 10,
+      },
+      undefined,
+    ]
+  }
+  testID="headerContainerWrapper"
+>
+  <View
+    testID="fixedItems"
+  />
+  <View
+    testID="children"
+  />
+  <View
+    testID="chipComponent"
+  />
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignSelf": "center",
+        "bottom": -20,
+        "opacity": 1,
+        "position": "absolute",
+      }
+    }
+    testID="headerContainerExpandableIcon"
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#FFFFFF",
+          "borderRadius": 20,
+          "elevation": 4,
+          "height": 40,
+          "justifyContent": "center",
+          "shadowColor": "#B5B5C2",
+          "shadowOffset": {
+            "height": 2,
+            "width": 0,
+          },
+          "shadowOpacity": 0.2,
+          "shadowRadius": 4,
+          "width": 40,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": true,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={false}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "opacity": 1,
+          }
+        }
+        testID="iconTouchable"
+      >
+        <View
+          fill="#6C67FA"
+          height={22}
+          testID="icon-chevron-up"
+          viewBox="0 0 16 16"
+          width={22}
+        >
+          <View
+            d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

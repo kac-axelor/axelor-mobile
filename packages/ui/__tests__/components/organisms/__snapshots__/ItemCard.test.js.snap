@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemCard Component matches the selected snapshot 1`] = `
+<View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "minHeight": 40,
+        "opacity": 1,
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      adjustsFontSizeToFit={false}
+      style={
+        [
+          {
+            "color": "#333333",
+            "fontSize": 16,
+            "fontStyle": "normal",
+            "fontWeight": "bold",
+          },
+          {
+            "alignSelf": "center",
+            "marginLeft": 10,
+            "marginVertical": 7,
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      Item title
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={false}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginRight": 10,
+          "opacity": 1,
+        }
+      }
+      testID="iconTouchable"
+    >
+      <View
+        fill="#6C67FA"
+        height={18}
+        testID="icon-check-lg"
+        viewBox="0 0 16 16"
+        width={18}
+      >
+        <View
+          d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"
+        />
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "borderBottomColor": "#B5B5C2",
+        "borderBottomWidth": 1,
+        "left": -14,
+        "width": "104%",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`ItemCard Component matches the unselected snapshot 1`] = `
+<View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "minHeight": 40,
+        "opacity": 1,
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      adjustsFontSizeToFit={false}
+      style={
+        [
+          {
+            "color": "#333333",
+            "fontSize": 16,
+            "fontStyle": "normal",
+            "fontWeight": "bold",
+          },
+          {
+            "alignSelf": "center",
+            "marginLeft": 10,
+            "marginVertical": 7,
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      Item title
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={false}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginRight": 10,
+          "opacity": 1,
+        }
+      }
+      testID="iconTouchable"
+    >
+      <View
+        fill="#C9C9D0"
+        height={20}
+        testID="icon-chevron-right"
+        viewBox="0 0 16 16"
+        width={20}
+      >
+        <View
+          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+        />
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "borderBottomColor": "#B5B5C2",
+        "borderBottomWidth": 1,
+        "left": -14,
+        "width": "104%",
+      }
+    }
+  />
+</View>
+`;

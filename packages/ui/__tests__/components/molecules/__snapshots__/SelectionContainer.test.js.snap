@@ -1,0 +1,870 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectionContainer Component matches the AutoComplete dropdown snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "#FFFFFF",
+        "borderColor": "#B5B5C2",
+        "borderRadius": 16,
+        "borderWidth": 1,
+        "elevation": 2,
+        "height": 125,
+        "position": "absolute",
+        "shadowColor": "#B5B5C2",
+        "shadowOffset": {
+          "height": 4,
+          "width": 0,
+        },
+        "shadowOpacity": 0.12,
+        "top": "94%",
+        "width": "100%",
+        "zIndex": 110,
+      },
+      undefined,
+    ]
+  }
+  testID="selectionContainerWrapper"
+>
+  <RCTScrollView
+    keyboardShouldPersistTaps="always"
+    nestedScrollEnabled={true}
+  >
+    <View>
+      <View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "minHeight": 40,
+              "opacity": 1,
+              "width": "100%",
+              "zIndex": 105,
+            }
+          }
+          testID="selectionItemTouchable"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <Text
+              adjustsFontSizeToFit={false}
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#333333",
+                    "fontSize": 16,
+                  },
+                  {
+                    "fontSize": 16,
+                    "marginLeft": 10,
+                    "marginVertical": 5,
+                    "width": "90%",
+                  },
+                ]
+              }
+            >
+              Item 1
+            </Text>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": true,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={false}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "opacity": 1,
+                }
+              }
+              testID="iconTouchable"
+            >
+              <View
+                fill="#C9C9D0"
+                height={20}
+                testID="icon-chevron-right"
+                viewBox="0 0 16 16"
+                width={20}
+              >
+                <View
+                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "borderBottomColor": "#B5B5C2",
+              "borderBottomWidth": 1,
+              "width": "100%",
+              "zIndex": 115,
+            }
+          }
+        />
+      </View>
+      <View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "minHeight": 40,
+              "opacity": 1,
+              "width": "100%",
+              "zIndex": 105,
+            }
+          }
+          testID="selectionItemTouchable"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <Text
+              adjustsFontSizeToFit={false}
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#333333",
+                    "fontSize": 16,
+                  },
+                  {
+                    "fontSize": 16,
+                    "marginLeft": 10,
+                    "marginVertical": 5,
+                    "width": "90%",
+                  },
+                ]
+              }
+            >
+              Item 2
+            </Text>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": true,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={false}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "opacity": 1,
+                }
+              }
+              testID="iconTouchable"
+            >
+              <View
+                fill="#C9C9D0"
+                height={20}
+                testID="icon-chevron-right"
+                viewBox="0 0 16 16"
+                width={20}
+              >
+                <View
+                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "borderBottomColor": "#B5B5C2",
+              "borderBottomWidth": 1,
+              "width": "100%",
+              "zIndex": 115,
+            }
+          }
+        />
+      </View>
+      <View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "minHeight": 40,
+              "opacity": 1,
+              "width": "100%",
+              "zIndex": 105,
+            }
+          }
+          testID="selectionItemTouchable"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <Text
+              adjustsFontSizeToFit={false}
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#333333",
+                    "fontSize": 16,
+                  },
+                  {
+                    "fontSize": 16,
+                    "marginLeft": 10,
+                    "marginVertical": 5,
+                    "width": "90%",
+                  },
+                ]
+              }
+            >
+              Item 3
+            </Text>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": true,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={false}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "opacity": 1,
+                }
+              }
+              testID="iconTouchable"
+            >
+              <View
+                fill="#C9C9D0"
+                height={20}
+                testID="icon-chevron-right"
+                viewBox="0 0 16 16"
+                width={20}
+              >
+                <View
+                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={null}
+        />
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`SelectionContainer Component matches the picker dropdown snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "#FFFFFF",
+        "borderColor": "#B5B5C2",
+        "borderRadius": 16,
+        "borderWidth": 1,
+        "elevation": 2,
+        "height": 125,
+        "position": "absolute",
+        "shadowColor": "#B5B5C2",
+        "shadowOffset": {
+          "height": 4,
+          "width": 0,
+        },
+        "shadowOpacity": 0.12,
+        "top": "94%",
+        "width": "100%",
+        "zIndex": 110,
+      },
+      undefined,
+    ]
+  }
+  testID="selectionContainerWrapper"
+>
+  <RCTScrollView
+    keyboardShouldPersistTaps="always"
+    nestedScrollEnabled={true}
+  >
+    <View>
+      <View>
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "minHeight": 40,
+                "opacity": 1,
+                "width": "100%",
+                "zIndex": 105,
+              }
+            }
+            testID="selectionItemTouchable"
+          >
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": true,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={false}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "margin": 10,
+                  "opacity": 1,
+                }
+              }
+              testID="iconTouchable"
+            >
+              <View
+                fill="#5A5A7C"
+                height={18}
+                testID="icon-square"
+                viewBox="0 0 16 16"
+                width={18}
+              >
+                <View
+                  d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+                />
+              </View>
+            </View>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <Text
+                adjustsFontSizeToFit={false}
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "color": "#333333",
+                      "fontSize": 16,
+                    },
+                    {
+                      "fontSize": 16,
+                      "marginLeft": 0,
+                      "marginVertical": 5,
+                      "width": "85%",
+                    },
+                  ]
+                }
+              >
+                Item 1
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "borderBottomColor": "#B5B5C2",
+                "borderBottomWidth": 1,
+                "width": "100%",
+                "zIndex": 115,
+              }
+            }
+          />
+        </View>
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "minHeight": 40,
+                "opacity": 1,
+                "width": "100%",
+                "zIndex": 105,
+              }
+            }
+            testID="selectionItemTouchable"
+          >
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": true,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={false}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "margin": 10,
+                  "opacity": 1,
+                }
+              }
+              testID="iconTouchable"
+            >
+              <View
+                fill="#5A5A7C"
+                height={18}
+                testID="icon-square"
+                viewBox="0 0 16 16"
+                width={18}
+              >
+                <View
+                  d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+                />
+              </View>
+            </View>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <Text
+                adjustsFontSizeToFit={false}
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "color": "#333333",
+                      "fontSize": 16,
+                    },
+                    {
+                      "fontSize": 16,
+                      "marginLeft": 0,
+                      "marginVertical": 5,
+                      "width": "85%",
+                    },
+                  ]
+                }
+              >
+                Item 2
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "borderBottomColor": "#B5B5C2",
+                "borderBottomWidth": 1,
+                "width": "100%",
+                "zIndex": 115,
+              }
+            }
+          />
+        </View>
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "minHeight": 40,
+                "opacity": 1,
+                "width": "100%",
+                "zIndex": 105,
+              }
+            }
+            testID="selectionItemTouchable"
+          >
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": true,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={false}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "margin": 10,
+                  "opacity": 1,
+                }
+              }
+              testID="iconTouchable"
+            >
+              <View
+                fill="#5A5A7C"
+                height={18}
+                testID="icon-square"
+                viewBox="0 0 16 16"
+                width={18}
+              >
+                <View
+                  d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+                />
+              </View>
+            </View>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <Text
+                adjustsFontSizeToFit={false}
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "color": "#333333",
+                      "fontSize": 16,
+                    },
+                    {
+                      "fontSize": 16,
+                      "marginLeft": 0,
+                      "marginVertical": 5,
+                      "width": "85%",
+                    },
+                  ]
+                }
+              >
+                Item 3
+              </Text>
+            </View>
+          </View>
+          <View
+            style={null}
+          />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

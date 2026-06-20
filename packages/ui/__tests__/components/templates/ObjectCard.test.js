@@ -155,4 +155,43 @@ describe('ObjectCard Component', () => {
 
     expect(queryByTestId('icon-chevron-right')).toBeFalsy();
   });
+
+  it('renders the left accent bar with the given color when borderLeftColor is set', () => {
+    const {getByTestId} = setupObjectCard({borderLeftColor: '#6B4EFF'});
+
+    const leftBar = getByTestId('objectCardLeftBar');
+
+    expect(leftBar).toBeTruthy();
+    expect(leftBar.props.style).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({backgroundColor: '#6B4EFF'}),
+      ]),
+    );
+  });
+
+  it('does not render the left accent bar when borderLeftColor is omitted', () => {
+    const {queryByTestId} = setupObjectCard();
+
+    expect(queryByTestId('objectCardLeftBar')).toBeFalsy();
+  });
+
+  it('does not render the left accent bar when borderLeftColor is null', () => {
+    const {queryByTestId} = setupObjectCard({borderLeftColor: null});
+
+    expect(queryByTestId('objectCardLeftBar')).toBeFalsy();
+  });
+
+  it('keeps existing behavior when borderLeftColor is set (texts, badges, onPress)', () => {
+    const onPress = jest.fn();
+    const {getByText, getByTestId} = setupObjectCard({
+      borderLeftColor: '#6B4EFF',
+      onPress,
+    });
+
+    expect(getByText('Title Text')).toBeTruthy();
+    expect(getByText('New')).toBeTruthy();
+
+    fireEvent.press(getByTestId('objectCardTouchable'));
+    expect(onPress).toHaveBeenCalled();
+  });
 });

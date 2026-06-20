@@ -65,6 +65,15 @@ describe('Picker Component', () => {
     );
   });
 
+  it('should render picker options with a checkbox and no chevron', () => {
+    const {getAllByTestId, queryAllByTestId, getByTestId} = setupPicker();
+
+    fireEvent.press(getByTestId('rightIconButtonContainer'));
+
+    expect(getAllByTestId('icon-square').length).toBeGreaterThan(0);
+    expect(queryAllByTestId('icon-chevron-right').length).toBe(0);
+  });
+
   it('should call onValueChange with the right args', () => {
     const {getAllByTestId, getByTestId, props} = setupPicker({
       onValueChange: jest.fn(),
@@ -123,5 +132,40 @@ describe('Picker Component', () => {
     });
 
     expect(getByText(props.title)).toHaveStyle(props.styleTxt);
+  });
+
+  it('should render the selected option color dot in the closed field', () => {
+    const greenColor = {background: '#00FF00'};
+    const {getByTestId} = setupPicker({
+      listItems: [
+        {id: 1, name: 'Item 1', color: greenColor},
+        {id: 2, name: 'Item 2'},
+      ],
+      defaultValue: 1,
+    });
+
+    expect(getByTestId('pickerSelectedColorDot')).toHaveStyle({
+      backgroundColor: greenColor.background,
+    });
+  });
+
+  it('should not render the color dot when the selected option has no color', () => {
+    const {queryByTestId} = setupPicker({
+      listItems: [
+        {id: 1, name: 'Item 1'},
+        {id: 2, name: 'Item 2', color: {background: '#0000FF'}},
+      ],
+      defaultValue: 1,
+    });
+
+    expect(queryByTestId('pickerSelectedColorDot')).toBeNull();
+  });
+
+  it('should not render the color dot when no option is selected', () => {
+    const {queryByTestId} = setupPicker({
+      listItems: [{id: 1, name: 'Item 1', color: {background: '#00FF00'}}],
+    });
+
+    expect(queryByTestId('pickerSelectedColorDot')).toBeNull();
   });
 });
