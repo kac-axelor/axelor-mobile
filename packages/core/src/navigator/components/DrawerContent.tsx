@@ -286,7 +286,7 @@ const getStyles = (Colors: ThemeColors) =>
     },
     iconsContainer: {
       justifyContent: 'space-between',
-      marginHorizontal: 12,
+      marginHorizontal: 20,
       zIndex: 3,
     },
     scrollView: {
