@@ -120,7 +120,7 @@ const SessionCard = ({
         {renderActionButton(
           trans,
           'pencil-fill',
-          Colors.infoColor.background,
+          Colors.primaryColor.background,
           handleEdition,
         )}
         {renderActionButton(
@@ -247,15 +247,16 @@ const styles = StyleSheet.create({
   },
   actionView: {
     height: '100%',
+    justifyContent: 'center',
   },
   action: {
-    width: 56,
-    height: '100%',
+    width: 50,
+    height: 50,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1.5,
-    borderRadius: 16,
+    borderWidth: 1,
+    borderRadius: 11,
     marginHorizontal: 4,
   },
 });
