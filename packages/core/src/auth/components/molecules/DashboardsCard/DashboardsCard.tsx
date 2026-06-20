@@ -16,14 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
-import {Card} from '@axelor/aos-mobile-ui';
+import React, {useMemo} from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
+import {Card, ThemeColors, useThemeColor} from '@axelor/aos-mobile-ui';
 import {DashboardView} from '../../../../dashboards/view';
 import {useSelector} from '../../../../index';
 
 const DashboardsCard = ({style}) => {
+  const Colors = useThemeColor();
+
   const {mobileSettings} = useSelector((state: any) => state.appConfig);
+
+  const styles = useMemo(() => getStyles(Colors), [Colors]);
 
   const renderDashboards = () => {
     return mobileSettings.dashboardIdList.map((dashboardId, index) => {
@@ -45,20 +49,33 @@ const DashboardsCard = ({style}) => {
     return null;
   }
 
-  return <Card style={[styles.card, style]}>{renderDashboards()}</Card>;
+  return (
+    <Card style={[styles.card, style]}>
+      <View style={styles.periodChip} />
+      {renderDashboards()}
+    </Card>
+  );
 };
 
-const styles = StyleSheet.create({
-  card: {
-    flexDirection: 'row',
-    width: '90%',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    paddingVertical: 0,
-    paddingHorizontal: 0,
-    paddingRight: 0,
-    zIndex: 1,
-  },
-});
+const getStyles = (Colors: ThemeColors) =>
+  StyleSheet.create({
+    card: {
+      flexDirection: 'column',
+      width: '90%',
+      alignSelf: 'center',
+      borderRadius: 20,
+      paddingVertical: 0,
+      paddingHorizontal: 0,
+      paddingRight: 0,
+      zIndex: 1,
+    },
+    periodChip: {
+      alignSelf: 'flex-end',
+      borderRadius: 11,
+      paddingVertical: 4,
+      paddingHorizontal: 12,
+      backgroundColor: Colors.primaryColor.background_light,
+    },
+  });
 
 export default DashboardsCard;

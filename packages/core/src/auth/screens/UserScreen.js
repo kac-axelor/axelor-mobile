@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     minHeight: '100%',
   },
   marginCard: {
-    marginBottom: 10,
+    marginBottom: 12,
   },
 });
 

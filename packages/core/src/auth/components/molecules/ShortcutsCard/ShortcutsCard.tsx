@@ -24,7 +24,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Card, Icon, Text} from '@axelor/aos-mobile-ui';
+import {
+  Card,
+  Icon,
+  Text,
+  ThemeColors,
+  useThemeColor,
+} from '@axelor/aos-mobile-ui';
 import {useSelector} from '../../../../index';
 import {useNavigation} from '../../../../hooks/use-navigation';
 
@@ -38,6 +44,7 @@ interface ShortcutsCardProps {
 
 const ShortcutsCard = ({style, horizontal = true}: ShortcutsCardProps) => {
   const navigation = useNavigation();
+  const Colors = useThemeColor();
 
   const {mobileSettings} = useSelector((state: any) => state.appConfig);
 
@@ -52,8 +59,8 @@ const ShortcutsCard = ({style, horizontal = true}: ShortcutsCardProps) => {
       : baseNumberShortcutPerLine;
     const shortCutWidth = insideCardWidth / numberShortcutPerLine;
 
-    return getStyles(shortCutWidth);
-  }, [horizontal]);
+    return getStyles(shortCutWidth, Colors);
+  }, [Colors, horizontal]);
 
   const renderShortCut = useCallback(
     ({item}) => {
@@ -62,16 +69,22 @@ const ShortcutsCard = ({style, horizontal = true}: ShortcutsCardProps) => {
           style={styles.shortcut}
           onPress={() => navigation.navigate(item.mobileScreenName)}
           key={item.shortcutId}>
-          <Icon name={item.iconName} size={35} />
+          <View style={styles.shortcutTile}>
+            <Icon
+              name={item.iconName}
+              size={24}
+              color={Colors.primaryColor.background}
+            />
+          </View>
           <View style={styles.shortcutTextContainer}>
-            <Text fontSize={14} numberOfLines={2} style={styles.shortcutText}>
+            <Text fontSize={12} numberOfLines={2} style={styles.shortcutText}>
               {item.name}
             </Text>
           </View>
         </TouchableOpacity>
       );
     },
-    [navigation, styles],
+    [Colors, navigation, styles],
   );
 
   if (
@@ -96,30 +109,39 @@ const ShortcutsCard = ({style, horizontal = true}: ShortcutsCardProps) => {
   );
 };
 
-const getStyles = (shortCutWidth: number) =>
+const getStyles = (shortCutWidth: number, Colors: ThemeColors) =>
   StyleSheet.create({
     card: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       width: `${CARD_PERCENT_WIDTH}%`,
       alignSelf: 'center',
+      borderRadius: 20,
       paddingHorizontal: CARD_PADDING,
       paddingRight: CARD_PADDING,
       zIndex: 1,
     },
     shortcut: {
       width: shortCutWidth,
-      padding: 5,
+      paddingVertical: 5,
       alignItems: 'center',
-      gap: 5,
+      gap: 6,
+    },
+    shortcutTile: {
+      width: 52,
+      height: 52,
+      borderRadius: 16,
+      backgroundColor: Colors.primaryColor.background_light,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     shortcutTextContainer: {
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
     shortcutText: {
       textAlign: 'center',
+      fontWeight: '700',
     },
   });
 

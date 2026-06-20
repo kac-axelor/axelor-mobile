@@ -90,12 +90,19 @@ const UserCard = ({children, style}) => {
             generalStyle={styles.image}
           />
           <View style={styles.flexOne}>
-            <Text>{user.name}</Text>
-            <Text writingType="details">{user.code}</Text>
+            <Text fontSize={19} style={styles.name}>
+              {user.name}
+            </Text>
+            <Text fontSize={13} writingType="details" style={styles.code}>
+              {user.code}
+            </Text>
             {!displayCompanyPicker && (
               <LabelText
                 iconName="building-fill"
+                textSize={14}
+                color={Colors.primaryColor.background}
                 title={user.activeCompany?.name}
+                style={styles.company}
               />
             )}
           </View>
@@ -104,7 +111,7 @@ const UserCard = ({children, style}) => {
           style={styles.logOutIcon}
           name="power"
           color={Colors.primaryColor.background}
-          size={25}
+          size={20}
           touchable={true}
           onPress={() => dispatch((logout as any)())}
         />
@@ -132,7 +139,8 @@ const getStyles = (isCardTopMargin: boolean, Colors: ThemeColors) =>
     card: {
       width: '90%',
       alignSelf: 'center',
-      paddingHorizontal: 16,
+      borderRadius: 20,
+      padding: 16,
       paddingRight: 16,
       zIndex: 2,
     },
@@ -148,20 +156,31 @@ const getStyles = (isCardTopMargin: boolean, Colors: ThemeColors) =>
       alignItems: 'center',
     },
     image: {
-      width: 80,
-      height: 80,
-      borderRadius: 40,
-      marginRight: 5,
+      width: 58,
+      height: 58,
+      borderRadius: 29,
+      marginRight: 12,
+    },
+    name: {
+      fontWeight: '800',
+      color: Colors.text,
+    },
+    code: {
+      fontWeight: '600',
+      color: Colors.secondaryColor_dark.background,
+    },
+    company: {
+      marginTop: 2,
     },
     logOutIcon: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      backgroundColor: Colors.backgroundColor,
-      elevation: 5,
-      shadowOpacity: 0.5,
-      shadowOffset: {width: 0, height: 0},
-      shadowColor: Colors.secondaryColor.background,
+      width: 42,
+      height: 42,
+      borderRadius: 21,
+      borderWidth: 1,
+      borderColor: Colors.primaryColor.background,
+      backgroundColor: 'transparent',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     picker: {
       width: '100%',
