@@ -22,7 +22,7 @@ export const getCommonStyles = (Colors, _required = false) =>
   StyleSheet.create({
     filter: {
       backgroundColor: Colors.screenBackgroundColor,
-      borderRadius: 16,
+      borderRadius: 14,
       paddingHorizontal: 16,
       paddingVertical: 0,
       marginVertical: 8,
