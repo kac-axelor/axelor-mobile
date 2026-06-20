@@ -22,7 +22,7 @@ import {useThemeColor, Color} from '../../../theme';
 import {Button, Chip} from '../../molecules';
 
 const CHIP_CONTAINER_MARGIN = 16;
-const CHIP_MARGIN = 2;
+const CHIP_MARGIN = 6;
 
 const MODES = {
   switch: 'switch',
@@ -40,6 +40,7 @@ interface ChipSelectProps {
   style?: any;
   selectionItems: Item[];
   mode: 'multi' | 'switch';
+  variant?: 'toggle' | 'outlined';
   isRefresh?: boolean;
   width?: number;
   marginHorizontal?: number;
@@ -53,6 +54,7 @@ const ChipSelect = ({
   style,
   selectionItems,
   mode,
+  variant = 'toggle',
   isRefresh = false,
   width,
   marginHorizontal = CHIP_MARGIN,
@@ -171,6 +173,7 @@ const ChipSelect = ({
             selected={chipIsSelected(item)}
             title={item.title}
             selectedColor={item.color}
+            variant={variant}
             onPress={() => updateChip(item)}
             readonly={readonly}
             marginHorizontal={marginHorizontal}
@@ -186,10 +189,10 @@ const ChipSelect = ({
 const styles = StyleSheet.create({
   chipContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginHorizontal: CHIP_CONTAINER_MARGIN,
-    marginVertical: 2,
+    marginVertical: 6,
   },
   scrollContainer: {
     alignItems: 'center',

@@ -27,6 +27,7 @@ interface ChipProps {
   title: string;
   onPress: () => void;
   selectedColor?: Color;
+  variant?: 'toggle' | 'outlined';
   width?: number;
   marginHorizontal?: number;
   readonly?: boolean;
@@ -39,6 +40,7 @@ const Chip = ({
   title,
   onPress,
   selectedColor = null,
+  variant = 'toggle',
   width = Dimensions.get('window').width * 0.4,
   marginHorizontal = 12,
   readonly = false,
@@ -47,25 +49,23 @@ const Chip = ({
 }: ChipProps) => {
   const Colors = useThemeColor();
 
-  const chipColor = useMemo(() => {
-    let _chipColor: Color =
-      selectedColor == null ? Colors.primaryColor : selectedColor;
-
-    if (!selected) {
-      _chipColor = {
-        background: _chipColor.background,
-        background_light: Colors.backgroundColor,
-        foreground: Colors.text,
-      };
-    }
-
-    return _chipColor;
-  }, [Colors, selected, selectedColor]);
+  const chipColor = useMemo<Color>(
+    () => (selectedColor == null ? Colors.primaryColor : selectedColor),
+    [Colors, selectedColor],
+  );
 
   const styles = useMemo(
-    () => getStyles(chipColor, Colors),
-    [Colors, chipColor],
+    () => getStyles(chipColor, Colors, selected),
+    [Colors, chipColor, selected],
   );
+
+  const isOutlined = variant === 'outlined';
+
+  const labelColor = isOutlined
+    ? chipColor.background
+    : selected
+      ? chipColor.background
+      : Colors.secondaryColor_dark.background;
 
   return (
     <TouchableOpacity
@@ -74,10 +74,13 @@ const Chip = ({
       onPress={onPress}
       activeOpacity={0.8}
       testID="chipTouchable">
-      <View style={styles.container} testID="chipContainer">
+      <View
+        style={isOutlined ? styles.outlinedContainer : styles.toggleContainer}
+        testID="chipContainer">
+        {!isOutlined && selected && <View style={styles.dot} />}
         <Text
           style={styles.text}
-          textColor={selected ? chipColor.foreground : Colors.text}
+          textColor={labelColor}
           numberOfLines={numberOfLines}
           fontSize={14}>
           {sliceString(title, 23)}
@@ -87,25 +90,43 @@ const Chip = ({
   );
 };
 
-const getStyles = (chipColor: Color, Colors: ThemeColors) =>
+const getStyles = (chipColor: Color, Colors: ThemeColors, selected: boolean) =>
   StyleSheet.create({
-    container: {
+    toggleContainer: {
+      flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      paddingVertical: 5,
-      paddingHorizontal: 5,
+      height: 44,
+      paddingHorizontal: 14,
       marginVertical: 2,
-      borderRadius: 20,
-      borderWidth: 2,
+      borderRadius: 13,
+      borderWidth: selected ? 2 : 0,
       borderColor: chipColor.background,
-      backgroundColor: chipColor.background_light,
-      elevation: 3,
-      shadowOpacity: 0.5,
-      shadowColor: Colors.secondaryColor.background,
-      shadowOffset: {width: 0, height: 0},
+      backgroundColor: selected
+        ? chipColor.background_light
+        : Colors.screenBackgroundColor,
+    },
+    dot: {
+      width: 8,
+      height: 8,
+      borderRadius: 99,
+      marginRight: 8,
+      backgroundColor: chipColor.background,
+    },
+    outlinedContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 34,
+      paddingHorizontal: 14,
+      marginVertical: 2,
+      borderRadius: 99,
+      borderWidth: 1,
+      borderColor: chipColor.background,
+      backgroundColor: 'transparent',
     },
     text: {
       textAlign: 'center',
+      fontWeight: 'bold',
     },
   });
 
