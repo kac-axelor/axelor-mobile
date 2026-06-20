@@ -36,13 +36,55 @@ describe('Chip Component', () => {
       overrideProps,
     });
 
-  function checkChipStyle(viewElt, textElt, color) {
+  /*
+   * Toggle variant, active state: selectedColor.background_light fill,
+   * saturated selectedColor.background border (2px), leading colour dot and
+   * a bold label coloured with selectedColor.background.
+   */
+  function checkActiveToggleStyle(viewElt, textElt, color) {
     expect(viewElt).toHaveStyle({
-      borderColor: color.background,
       backgroundColor: color.background_light,
+      borderColor: color.background,
+      borderWidth: 2,
+      borderRadius: 13,
+      height: 44,
     });
 
-    expect(textElt).toHaveStyle({color: color.foreground});
+    expect(textElt).toHaveStyle({color: color.background, fontWeight: 'bold'});
+  }
+
+  /*
+   * Toggle variant, inactive state: flat screenBackgroundColor fill with no
+   * border and a muted secondaryColor_dark label.
+   */
+  function checkInactiveToggleStyle(viewElt, textElt) {
+    expect(viewElt).toHaveStyle({
+      backgroundColor: Colors.screenBackgroundColor,
+      borderWidth: 0,
+      borderRadius: 13,
+      height: 44,
+    });
+
+    expect(textElt).toHaveStyle({
+      color: Colors.secondaryColor_dark.background,
+      fontWeight: 'bold',
+    });
+  }
+
+  /*
+   * Outlined variant: transparent fill, 1px type-colour border, radius 99 pill
+   * and a bold type-colour label, regardless of selected state.
+   */
+  function checkOutlinedStyle(viewElt, textElt, color) {
+    expect(viewElt).toHaveStyle({
+      backgroundColor: 'transparent',
+      borderColor: color.background,
+      borderWidth: 1,
+      borderRadius: 99,
+      height: 34,
+    });
+
+    expect(textElt).toHaveStyle({color: color.background, fontWeight: 'bold'});
   }
 
   it('renders without crashing', () => {
@@ -60,7 +102,7 @@ describe('Chip Component', () => {
     expect(_viewElt).toBeTruthy();
     expect(_textElt).toBeTruthy();
 
-    checkChipStyle(_viewElt, _textElt, Colors.primaryColor);
+    checkActiveToggleStyle(_viewElt, _textElt, Colors.primaryColor);
   });
 
   it('should disable touchable when readonly', () => {
@@ -80,7 +122,7 @@ describe('Chip Component', () => {
     expect(props.onPress).toHaveBeenCalledTimes(1);
   });
 
-  it('should use custom selected color', () => {
+  it('should use custom selected color for active toggle', () => {
     const {getByTestId, getByText, props} = setupChip();
 
     const _viewElt = getByTestId('chipContainer');
@@ -89,10 +131,46 @@ describe('Chip Component', () => {
     expect(_viewElt).toBeTruthy();
     expect(_textElt).toBeTruthy();
 
-    checkChipStyle(_viewElt, _textElt, props.selectedColor);
+    checkActiveToggleStyle(_viewElt, _textElt, props.selectedColor);
   });
 
-  it('should use default colors when not selected', () => {
+  it('should fall back to primary color for active toggle when no selectedColor', () => {
+    const {getByTestId, getByText, props} = setupChip({selectedColor: null});
+
+    const _viewElt = getByTestId('chipContainer');
+    const _textElt = getByText(props.title);
+
+    checkActiveToggleStyle(_viewElt, _textElt, Colors.primaryColor);
+  });
+
+  it('should show the leading colour dot only when active toggle', () => {
+    const {getByTestId, rerender} = setupChip();
+
+    /*
+     * The dot is a small 8x8 round view (background of the saturated colour)
+     * rendered as the first child of the container before the label, only in
+     * the active toggle state.
+     */
+    const isDot = node =>
+      node != null &&
+      typeof node === 'object' &&
+      node.props?.style?.width === 8 &&
+      node.props?.style?.height === 8 &&
+      node.props?.style?.borderRadius === 99;
+
+    const activeContainer = getByTestId('chipContainer');
+    expect(activeContainer.children.some(isDot)).toBe(true);
+    const activeDot = activeContainer.children.find(isDot);
+    expect(activeDot.props.style.backgroundColor).toBe(
+      Colors.infoColor.background,
+    );
+
+    rerender({selected: false});
+    const inactiveContainer = getByTestId('chipContainer');
+    expect(inactiveContainer.children.some(isDot)).toBe(false);
+  });
+
+  it('should use muted inactive toggle styles when not selected', () => {
     const {getByTestId, getByText, props} = setupChip({
       selected: false,
       selectedColor: null,
@@ -104,14 +182,10 @@ describe('Chip Component', () => {
     expect(_viewElt).toBeTruthy();
     expect(_textElt).toBeTruthy();
 
-    checkChipStyle(_viewElt, _textElt, {
-      foreground: Colors.text,
-      background_light: Colors.backgroundColor,
-      background: Colors.primaryColor.background,
-    });
+    checkInactiveToggleStyle(_viewElt, _textElt);
   });
 
-  it('should use provided color border when not selected', () => {
+  it('should keep muted inactive toggle styles even with a provided color', () => {
     const {getByTestId, getByText, props} = setupChip({selected: false});
 
     const _viewElt = getByTestId('chipContainer');
@@ -120,11 +194,57 @@ describe('Chip Component', () => {
     expect(_viewElt).toBeTruthy();
     expect(_textElt).toBeTruthy();
 
-    checkChipStyle(_viewElt, _textElt, {
-      foreground: Colors.text,
-      background_light: Colors.backgroundColor,
-      background: props.selectedColor.background,
+    /*
+     * Inactive toggle ignores the saturated colour for fill and label; only a
+     * flat muted look is shown.
+     */
+    checkInactiveToggleStyle(_viewElt, _textElt);
+  });
+
+  it('should render an outlined chip with transparent fill and type-colour border', () => {
+    const {getByTestId, getByText, props} = setupChip({variant: 'outlined'});
+
+    const _viewElt = getByTestId('chipContainer');
+    const _textElt = getByText(props.title);
+
+    expect(_viewElt).toBeTruthy();
+    expect(_textElt).toBeTruthy();
+
+    checkOutlinedStyle(_viewElt, _textElt, props.selectedColor);
+  });
+
+  it('should keep outlined styling regardless of selected state', () => {
+    const {getByTestId, getByText, props} = setupChip({
+      variant: 'outlined',
+      selected: false,
     });
+
+    const _viewElt = getByTestId('chipContainer');
+    const _textElt = getByText(props.title);
+
+    /* Outlined fill/border/label do not depend on the selected flag. */
+    checkOutlinedStyle(_viewElt, _textElt, props.selectedColor);
+  });
+
+  it('should fall back to primary color for outlined chip when no selectedColor', () => {
+    const {getByTestId, getByText, props} = setupChip({
+      variant: 'outlined',
+      selectedColor: null,
+    });
+
+    const _viewElt = getByTestId('chipContainer');
+    const _textElt = getByText(props.title);
+
+    checkOutlinedStyle(_viewElt, _textElt, Colors.primaryColor);
+  });
+
+  it('should not apply any elevation or shadow', () => {
+    const {getByTestId} = setupChip();
+
+    const _viewElt = getByTestId('chipContainer');
+
+    expect(_viewElt).not.toHaveStyle({elevation: 4});
+    expect(_viewElt).not.toHaveStyle({shadowOpacity: 0.25});
   });
 
   it('should apply custom marginHorizontal when provided', () => {

@@ -52,12 +52,53 @@ describe('ChipSelect Component', () => {
       overrideProps,
     });
 
-  function checkChipStyle(viewElt, textElt, color) {
+  /*
+   * Toggle variant per chip redesign: active chips show a flat
+   * selectedColor.background_light fill with a 2px saturated border (radius 13,
+   * height 44) and a bold label coloured with the saturated background; inactive
+   * chips show a flat screenBackgroundColor fill with no border and a muted
+   * secondaryColor_dark label.
+   */
+  function checkToggleStyle(viewElt, textElt, color, isSelected) {
+    if (isSelected) {
+      expect(viewElt).toHaveStyle({
+        backgroundColor: color.background_light,
+        borderColor: color.background,
+        borderWidth: 2,
+        borderRadius: 13,
+        height: 44,
+      });
+      expect(textElt).toHaveStyle({
+        color: color.background,
+        fontWeight: 'bold',
+      });
+    } else {
+      expect(viewElt).toHaveStyle({
+        backgroundColor: Colors.screenBackgroundColor,
+        borderWidth: 0,
+        borderRadius: 13,
+        height: 44,
+      });
+      expect(textElt).toHaveStyle({
+        color: Colors.secondaryColor_dark.background,
+        fontWeight: 'bold',
+      });
+    }
+  }
+
+  /*
+   * Outlined variant: transparent fill, 1px type-colour border, radius 99 pill
+   * and a bold type-colour label, regardless of selected state.
+   */
+  function checkOutlinedStyle(viewElt, textElt, color) {
     expect(viewElt).toHaveStyle({
+      backgroundColor: 'transparent',
       borderColor: color.background,
-      backgroundColor: color.background_light,
+      borderWidth: 1,
+      borderRadius: 99,
+      height: 34,
     });
-    expect(textElt).toHaveStyle({color: color.foreground});
+    expect(textElt).toHaveStyle({color: color.background, fontWeight: 'bold'});
   }
 
   function checkChipSelected(elt, item, isSelected) {
@@ -66,18 +107,28 @@ describe('ChipSelect Component', () => {
 
     expect(_viewElt).toBeTruthy();
     expect(_textElt).toBeTruthy();
-    checkChipStyle(_viewElt, _textElt, {
-      ...(item.color ?? Colors.primaryColor),
-      ...(isSelected
-        ? {}
-        : {background_light: Colors.backgroundColor, foreground: Colors.text}),
-    });
+    checkToggleStyle(
+      _viewElt,
+      _textElt,
+      item.color ?? Colors.primaryColor,
+      isSelected,
+    );
   }
 
   it('renders without crashing', () => {
     const {getByTestId} = setupChipSelect();
 
     expect(getByTestId('chipSelectContainer')).toBeTruthy();
+  });
+
+  it('should lay the row out left-aligned', () => {
+    const {getByTestId} = setupChipSelect();
+
+    expect(getByTestId('chipSelectContainer')).toHaveStyle({
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    });
   });
 
   it('should not render if props mode is unknown', () => {
@@ -99,6 +150,40 @@ describe('ChipSelect Component', () => {
 
     props.selectionItems.forEach((_i, idx) => {
       checkChipSelected(_chipElts.at(idx), _i, _i.isActive);
+    });
+  });
+
+  it('should space chips apart with the default gap', () => {
+    const {getAllByTestId} = setupChipSelect();
+
+    getAllByTestId('chipTouchable').forEach(_elt => {
+      expect(_elt).toHaveStyle({marginHorizontal: 6});
+    });
+  });
+
+  it('should render chips with the toggle variant by default', () => {
+    const {getAllByTestId, props} = setupChipSelect();
+
+    const _chipElts = getAllByTestId('chipTouchable');
+
+    props.selectionItems.forEach((_i, idx) => {
+      const _viewElt = within(_chipElts.at(idx)).getByTestId('chipContainer');
+      const _textElt = within(_viewElt).getByText(_i.title);
+
+      checkToggleStyle(_viewElt, _textElt, _i.color, _i.isActive);
+    });
+  });
+
+  it('should pass the variant through to every Chip', () => {
+    const {getAllByTestId, props} = setupChipSelect({variant: 'outlined'});
+
+    const _chipElts = getAllByTestId('chipTouchable');
+
+    props.selectionItems.forEach((_i, idx) => {
+      const _viewElt = within(_chipElts.at(idx)).getByTestId('chipContainer');
+      const _textElt = within(_viewElt).getByText(_i.title);
+
+      checkOutlinedStyle(_viewElt, _textElt, _i.color);
     });
   });
 

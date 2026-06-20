@@ -18,9 +18,11 @@
 
 import {fireEvent, within} from '@testing-library/react-native';
 import {Breadcrumb} from '@axelor/aos-mobile-ui';
-import {setup} from '../../tools';
+import {getDefaultThemeColors, setup} from '../../tools';
 
 describe('Breadcrumb Component', () => {
+  const Colors = getDefaultThemeColors();
+
   const setupBreadcrumb = overrideProps =>
     setup({
       Component: Breadcrumb,
@@ -95,6 +97,41 @@ describe('Breadcrumb Component', () => {
         expect(_i.onPress).not.toHaveBeenCalled();
       }
     });
+  });
+
+  it('should render the rootLabel when items is empty and rootLabel is provided', () => {
+    const {getByText, getByTestId} = setupBreadcrumb({
+      items: [],
+      rootLabel: 'Racine · 3 dossiers',
+    });
+
+    /* Home icon stays visible even with no items */
+    expect(within(getByTestId('breadcrumbContainer')).getByTestId(
+      'icon-house-door-fill',
+    )).toBeTruthy();
+
+    const _rootLabel = getByText('Racine · 3 dossiers');
+    expect(_rootLabel).toBeTruthy();
+    expect(_rootLabel).toHaveStyle({
+      fontSize: 13,
+      fontWeight: '700',
+      color: Colors.secondaryColor_dark.background,
+    });
+  });
+
+  it('should not render the rootLabel when items is empty but rootLabel is missing', () => {
+    const {queryByText, queryAllByTestId} = setupBreadcrumb({items: []});
+
+    expect(queryByText(/Racine/)).toBeNull();
+    expect(queryAllByTestId(/^breadcrumbItemContainer-idx.*/).length).toBe(0);
+  });
+
+  it('should not render the rootLabel when items are present', () => {
+    const {queryByText} = setupBreadcrumb({
+      rootLabel: 'Racine · 3 dossiers',
+    });
+
+    expect(queryByText('Racine · 3 dossiers')).toBeNull();
   });
 
   it('should apply custom styles to the container', () => {

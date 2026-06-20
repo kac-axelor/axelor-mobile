@@ -164,14 +164,20 @@ describe('Increment component', () => {
     expect(getByTestId('incrementContainer')).toHaveStyle(props.style);
   });
 
-  it('renders +/- buttons as filled, flat, borderless squares', () => {
+  it('renders +/- buttons as 42x42 rounded squares with a secondary-color border', () => {
     const {getAllByTestId} = setupIncrement();
 
-    getAllByTestId('iconTouchable').forEach(incrementButton => {
+    const incrementButtons = getAllByTestId('iconTouchable');
+    expect(incrementButtons.length).toBe(2);
+
+    incrementButtons.forEach(incrementButton => {
       expect(incrementButton).toHaveStyle({
-        backgroundColor: Colors.screenBackgroundColor,
-        borderRadius: 12,
-        borderWidth: 0,
+        width: 42,
+        height: 42,
+        borderRadius: 11,
+        backgroundColor: Colors.backgroundColor,
+        borderWidth: 1,
+        borderColor: Colors.secondaryColor.background,
       });
     });
   });

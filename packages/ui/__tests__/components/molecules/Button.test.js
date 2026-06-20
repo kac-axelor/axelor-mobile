@@ -91,6 +91,27 @@ describe('Button Component', () => {
     });
   });
 
+  it('renders with pill shape and spacing from the redesign', () => {
+    const {getByRole} = setupButton();
+
+    /* Pill redesign: borderRadius 11 (was 7), paddingHorizontal 24 (was 10). */
+    expect(getByRole('button')).toHaveStyle({
+      borderRadius: 11,
+      paddingHorizontal: 24,
+      borderWidth: 2,
+    });
+  });
+
+  it('renders the label with the redesign typography', () => {
+    const {getByText, props} = setupButton();
+
+    /* Label redesign: fontSize 16 (was 17), fontWeight "700". */
+    expect(getByText(props.title)).toHaveStyle({
+      fontSize: 16,
+      fontWeight: '700',
+    });
+  });
+
   it('renders with correct color', () => {
     const {getByRole, getByText, props} = setupButton({
       color: Colors.secondaryColor_dark,

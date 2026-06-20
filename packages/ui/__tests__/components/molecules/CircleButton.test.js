@@ -61,7 +61,7 @@ describe('CircleButton Component', () => {
     const {getByTestId, props} = setupCircleButton();
 
     expect(getByTestId('circleButton')).toHaveStyle({
-      borderRadius: 7,
+      borderRadius: 11,
       width: props.size,
       height: props.size,
     });
