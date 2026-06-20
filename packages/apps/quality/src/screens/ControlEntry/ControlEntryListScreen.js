@@ -143,15 +143,15 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '90%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignSelf: 'center',
     alignItems: 'center',
+    gap: 10,
   },
   toggleButton: {
     height: 40,
   },
   dateInput: {
-    width: '85%',
+    flex: 1,
   },
 });
 
