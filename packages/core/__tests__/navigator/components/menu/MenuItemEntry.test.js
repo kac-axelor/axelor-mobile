@@ -74,7 +74,7 @@ describe('MenuItemEntry Component (drawer redesign)', () => {
     const rowStyle = getRowStyle(toJSON());
 
     /* The inactive row keeps the rounded shape but no primary fill. */
-    expect(rowStyle.borderRadius).toBe(14);
+    expect(rowStyle.borderRadius).toBe(12);
     expect(rowStyle.backgroundColor).toBeUndefined();
   });
 

@@ -23,8 +23,8 @@ import {setup} from '../../../tools';
 
 /*
  * MenuSeparator is the drawer section header. The redesign drops the leading
- * chevron icon, upper cases the label and stretches the rule to the full width
- * so the header reads as a grouping divider.
+ * chevron icon, upper cases the label and places the rule inline beside the
+ * label, filling the rest of the row so the header reads as a grouping divider.
  */
 describe('MenuSeparator Component (drawer redesign)', () => {
   const setupSeparator = overrideProps =>
@@ -47,13 +47,14 @@ describe('MenuSeparator Component (drawer redesign)', () => {
     expect(queryByTestId('icon-chevron-right')).toBeNull();
   });
 
-  it('renders a full width rule beneath the label', () => {
+  it('renders the rule inline beside the label, filling the rest of the row', () => {
     const {getByTestId} = setupSeparator();
 
     const ruleStyle = StyleSheet.flatten(
       getByTestId('horizontalRule').props.style,
     );
 
-    expect(ruleStyle.width).toBe('100%');
+    expect(ruleStyle.flex).toBe(1);
+    expect(ruleStyle.width).toBeUndefined();
   });
 });

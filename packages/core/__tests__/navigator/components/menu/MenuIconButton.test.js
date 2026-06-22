@@ -23,10 +23,11 @@ import MenuIconButton from '../../../../lib/navigator/components/menu/MenuIconBu
 import {getDefaultThemeColors, setup} from '../../../tools';
 
 /*
- * MenuIconButton is the left rail module tile. The redesign drops the elevated
- * card: inactive tiles are transparent flat icons, the active module tile is a
- * solid primary square, and the rounded variant (the user avatar) is always a
- * solid primary disc. Press behaviour and the disabled guard are unchanged.
+ * MenuIconButton is the left rail module tile. Each tile is a rounded square
+ * (the rounded variant, the user avatar, is a full disc): inactive module tiles
+ * are white with a soft shadow, the active module tile is a solid primary fill
+ * with a glow, and the avatar is always a solid primary disc. Press behaviour
+ * and the disabled guard are unchanged.
  */
 describe('MenuIconButton Component (drawer redesign)', () => {
   const Colors = getDefaultThemeColors();
@@ -38,9 +39,10 @@ describe('MenuIconButton Component (drawer redesign)', () => {
       overrideProps,
     });
 
-  /* The touchable root wraps the tile container View as its first child. */
-  const getContainerStyle = root =>
-    StyleSheet.flatten(root.children[0].props.style);
+  /* The touchable root wraps an icon wrapper whose first child is the tile View
+   * that carries the tile background, radius and shadow. */
+  const getTileStyle = root =>
+    StyleSheet.flatten(root.children[0].children[0].props.style);
 
   /* The outer pressable tile is the first TouchableOpacity (the inner one
    * belongs to the Icon and stays non touchable). */
@@ -61,16 +63,16 @@ describe('MenuIconButton Component (drawer redesign)', () => {
     expect(getTile(utils).props.disabled).toBe(true);
   });
 
-  it('keeps an inactive module tile transparent', () => {
+  it('gives an inactive module tile a white background', () => {
     const {toJSON} = setupButton({isActive: false});
 
-    expect(getContainerStyle(toJSON()).backgroundColor).toBe('transparent');
+    expect(getTileStyle(toJSON()).backgroundColor).toBe(Colors.backgroundColor);
   });
 
   it('fills the active module tile with the solid primary color', () => {
     const {toJSON} = setupButton({isActive: true});
 
-    expect(getContainerStyle(toJSON()).backgroundColor).toBe(
+    expect(getTileStyle(toJSON()).backgroundColor).toBe(
       Colors.primaryColor.background,
     );
   });
@@ -78,9 +80,9 @@ describe('MenuIconButton Component (drawer redesign)', () => {
   it('always fills the rounded avatar with the solid primary color', () => {
     const {toJSON} = setupButton({rounded: true, isActive: false});
 
-    const containerStyle = getContainerStyle(toJSON());
-    expect(containerStyle.backgroundColor).toBe(Colors.primaryColor.background);
+    const tileStyle = getTileStyle(toJSON());
+    expect(tileStyle.backgroundColor).toBe(Colors.primaryColor.background);
     /* A rounded variant uses a circular radius (half its width). */
-    expect(containerStyle.borderRadius).toBeGreaterThan(20);
+    expect(tileStyle.borderRadius).toBeGreaterThan(20);
   });
 });
